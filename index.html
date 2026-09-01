@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health in Thailand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,440;0,9..144,500;0,9..144,560;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAF6EE;
+    --bg-alt: #F1ECE0;
+    --bg-warm: #F1ECE0;
+    --surface: #FFFEFB;
+    --ink: #2B332C;
+    --ink-soft: #5B6459;
+    --ink-faint: #8A9186;
+    --sage: #7C9A82;
+    --sage-deep: #4F6B57;
+    --sage-pale: #E4EBE1;
+    --blue: #6C8CA0;
+    --blue-pale: #E4EBEE;
+    --clay: #C79A66;
+    --clay-tint: #F3E7D5;
+    --line: #E1DACB;
+    --line-soft: #EAE4D6;
+    --shadow-sm: 0 2px 10px rgba(60,55,40,.05);
+    --shadow-md: 0 12px 32px -12px rgba(53,61,46,.18);
+    --shadow-lg: 0 24px 60px -20px rgba(53,61,46,.22);
+    --radius-lg: 26px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  section{position:relative;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+    position:relative;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    font-weight:600;
+    margin:0 0 18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:1px;
+    background:var(--sage-deep);
+    display:inline-block;
+  }
+  .eyebrow.on-dark{ color:#CFE0D2; }
+  .eyebrow.on-dark::before{ background:#CFE0D2; }
+
+  .heading-lg{
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.16;
+    letter-spacing:-.01em;
+    color:#232B25;
+    margin:0 0 20px;
+  }
+  .heading-lg em{ font-style:italic; font-weight:400; color:var(--sage-deep); }
+
+  .intro-text{
+    font-size:16.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:640px;
+    margin:0 0 56px;
+  }
+
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--sage-deep);
+    color:#FBFAF6;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    padding:15px 28px;
+    border-radius:999px;
+    border:1px solid var(--sage-deep);
+    box-shadow:var(--shadow-md);
+    transition:transform .3s var(--ease),background .3s var(--ease);
+  }
+  .btn-primary:hover{ background:#3E5647; transform:translateY(-2px); }
+  .btn-primary:focus-visible{ outline:2.5px solid var(--clay); outline-offset:3px; }
+  .btn-primary svg{ transition:transform .3s var(--ease); }
+  .btn-primary:hover svg{ transform:translateX(3px); }
+
+  .link-secondary{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    color:var(--sage-deep);
+    padding-bottom:2px;
+    border-bottom:1.5px solid var(--line);
+    transition:border-color .3s var(--ease), gap .3s var(--ease);
+  }
+  .link-secondary:hover{ border-color:var(--sage-deep); gap:12px; }
+  .link-secondary:focus-visible{ outline:2.5px solid var(--sage-deep); outline-offset:4px; border-radius:3px; }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .7s var(--ease), transform .7s var(--ease);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    *{ animation-duration:.01ms !important; }
+  }
+
+  .disclaimer-note{
+    font-size:12.5px;
+    color:var(--ink-faint);
+    max-width:760px;
+    margin:26px auto 0;
+    line-height:1.6;
+    text-align:center;
+  }
+
+  /* ================= SITE NAV ================= */
+  .site-nav{
+    position:sticky; top:0; z-index:500;
+    background:rgba(250,246,238,.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, box-shadow .3s ease;
+  }
+  .site-nav.is-scrolled{ border-color:var(--line-soft); box-shadow:0 8px 24px -18px rgba(43,51,44,.35); }
+  .site-nav-inner{
+    max-width:1180px; margin:0 auto; padding:0 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    height:64px;
+  }
+  .site-nav-logo{
+    display:flex; align-items:center; gap:9px;
+    font-family:var(--font-display); font-weight:500; font-size:16px; color:#232B25;
+    text-decoration:none; white-space:nowrap; flex-shrink:0;
+  }
+  .site-nav-logo-mark{
+    width:26px; height:26px; border-radius:8px; background:var(--sage-deep); color:#F7F4EC;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .site-nav-logo-mark svg{ width:14px; height:14px; }
+  .site-nav-links{
+    display:flex; align-items:center; gap:4px; list-style:none; margin:0; padding:0;
+    overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .site-nav-links::-webkit-scrollbar{ display:none; }
+  .site-nav-link{
+    display:inline-block; white-space:nowrap; padding:9px 13px; border-radius:999px;
+    font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none;
+    transition:background .2s ease, color .2s ease;
+  }
+  .site-nav-link:hover{ background:var(--sage-pale); color:var(--ink); }
+  .site-nav-link.is-active{ background:var(--sage-pale); color:var(--sage-deep); }
+  .site-nav-link:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:2px; }
+  .site-nav-cta{
+    display:inline-flex; align-items:center; gap:7px; flex-shrink:0;
+    background:var(--sage-deep); color:#F7F4EC; text-decoration:none; font-weight:600; font-size:13px;
+    padding:10px 18px; border-radius:999px; white-space:nowrap;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .site-nav-cta:hover{ background:#3E5647; transform:translateY(-1px); }
+  .site-nav-cta:focus-visible{ outline:2.5px solid var(--clay); outline-offset:3px; }
+  .site-nav-toggle{
+    display:none; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    background:none; border:1px solid var(--line-soft); cursor:pointer; flex-shrink:0; color:var(--ink);
+  }
+  .site-nav-toggle svg{ width:18px; height:18px; }
+
+  @media (max-width:980px){
+    .site-nav-links{ display:none; }
+    .site-nav-toggle{ display:flex; }
+    .site-nav.is-open .site-nav-links{
+      display:flex; flex-direction:column; align-items:stretch; gap:2px; overflow-x:visible;
+      position:absolute; top:64px; left:0; right:0; background:var(--surface);
+      border-bottom:1px solid var(--line-soft); box-shadow:0 16px 30px -20px rgba(43,51,44,.4);
+      padding:10px 16px 16px;
+    }
+    .site-nav.is-open .site-nav-link{ padding:12px 14px; border-radius:10px; }
+  }
+  @media (max-width:560px){
+    .site-nav-cta span{ display:none; }
+    .site-nav-cta{ padding:10px 12px; }
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    padding:84px 0 70px;
+    background:
+      radial-gradient(ellipse 900px 520px at 88% 4%, rgba(199,154,102,.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 4% 100%, rgba(124,154,130,.14), transparent 55%),
+      var(--bg);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:clamp(2.4rem,5.2vw,3.75rem);
+    line-height:1.08;
+    letter-spacing:-.01em;
+    color:#232B25;
+    margin:0 0 22px;
+  }
+  .hero h1 em{ font-style:italic; font-weight:400; color:var(--sage-deep); }
+  .hero-copy{
+    font-size:17px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:520px;
+    margin:0 0 34px;
+  }
+  .hero-cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:26px;
+  }
+  .hero-visual{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:320px;
+  }
+  .hero-visual-glow{
+    position:absolute;
+    width:78%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(199,154,102,.25) 0%, rgba(108,140,160,.16) 45%, rgba(199,154,102,0) 72%);
+    filter:blur(4px);
+    animation:breathe 7s var(--ease) infinite;
+  }
+  .hero-visual-ring{
+    position:absolute;
+    width:64%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    border:1px solid rgba(43,51,44,.14);
+    animation:breathe 7s var(--ease) infinite;
+    animation-delay:.4s;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(.92); opacity:.75; }
+    50%{ transform:scale(1.05); opacity:1; }
+  }
+  .hero-map-wrap{
+    position:relative;
+    width:76%;
+    max-width:320px;
+    animation:breathe 7s var(--ease) infinite;
+    animation-delay:.2s;
+  }
+  .hero-map-wrap svg{ width:100%; height:auto; }
+  .hero-map-dot{ fill:var(--clay); }
+  .hero-visual-caption{
+    position:absolute;
+    bottom:6%;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    background:rgba(250,246,238,.9);
+    padding:7px 16px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    white-space:nowrap;
+  }
+  @media (min-width:900px){
+    .hero-grid{ grid-template-columns:1.05fr .95fr; gap:40px; }
+    .hero-visual{ min-height:440px; }
+  }
+
+  .hero-cards{
+    margin-top:64px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  @media (min-width:640px){ .hero-cards{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:1080px){ .hero-cards{ grid-template-columns:repeat(4,1fr); } }
+  .hero-card{
+    background:var(--surface);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius-md);
+    padding:28px 24px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .hero-card:hover{ transform:translateY(-5px); border-color:rgba(199,154,102,.4); box-shadow:var(--shadow-md); }
+  .hero-card-icon{
+    width:44px;height:44px;
+    border-radius:12px;
+    background:var(--sage-pale);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+    color:var(--sage-deep);
+  }
+  .hero-card h3{ font-family:var(--font-display); font-size:16.5px; font-weight:600; color:#232B25; margin:0 0 8px; }
+  .hero-card p{ font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0; }
+
+  /* ================= INTRO ================= */
+  .intro-section{ padding:80px 0 88px; }
+  .intro-cards{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+    margin-top:44px;
+  }
+  @media (min-width:640px){ .intro-cards{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:960px){ .intro-cards{ grid-template-columns:repeat(3,1fr); } }
+  .intro-tags-label{ font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin:36px 0 14px; padding-top:32px; border-top:1px solid var(--line-soft); }
+  .intro-tags{ display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0; }
+  .intro-tags li{
+    list-style:none; font-size:13.5px; color:var(--ink); background:var(--surface); border:1px solid var(--line-soft);
+    border-radius:999px; padding:8px 16px; display:flex; align-items:center; gap:8px;
+  }
+  .intro-tags li svg{ width:14px; height:14px; stroke:var(--sage-deep); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+  /* ================= CONDITIONS ================= */
+  .cond-section{ padding:88px 0; }
+  .cond-grid{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:28px;
+    align-items:start;
+  }
+  .cond-tablist{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    list-style:none;
+    margin:0;
+    padding:10px;
+    background:var(--surface);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-sm);
+  }
+  .cond-tab{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    text-align:left;
+    background:transparent;
+    border:1px solid transparent;
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink-soft);
+    transition:background .28s var(--ease), color .28s var(--ease);
+  }
+  .cond-tab .cond-num{ font-family:var(--font-display); font-weight:500; font-size:14px; color:var(--clay); min-width:26px; }
+  .cond-tab .cond-label{ flex:1; }
+  .cond-tab .cond-arrow{ opacity:0; transform:translateX(-4px); transition:opacity .25s ease, transform .25s ease; color:var(--sage-deep); }
+  .cond-tab:hover{ background:var(--sage-pale); color:var(--ink); }
+  .cond-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+  .cond-tab[aria-selected="true"]{ background:var(--sage-deep); color:#F7F4EC; box-shadow:var(--shadow-sm); }
+  .cond-tab[aria-selected="true"] .cond-num{ color:#D9C9A8; }
+  .cond-tab[aria-selected="true"] .cond-arrow{ opacity:1; transform:translateX(0); }
+
+  .cond-panel-outer{
+    background:var(--surface);
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    padding:44px 44px 40px;
+    min-height:440px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cond-panel{ opacity:1; transform:translateY(0); transition:opacity .32s ease, transform .32s ease; }
+  .cond-panel.cond-fade{ opacity:0; transform:translateY(8px); }
+  .cond-panel-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700;
+    color:var(--sage); background:rgba(79,107,87,.09); padding:6px 14px; border-radius:999px; margin-bottom:20px;
+  }
+  .cond-panel h3{ font-family:var(--font-display); font-weight:500; font-size:clamp(24px,3vw,32px); margin:0 0 14px; color:#232B25; }
+  .cond-definition{ font-size:16px; line-height:1.7; color:var(--ink-soft); max-width:640px; margin:0 0 30px; }
+  .cond-panel-columns{ display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:30px; }
+  .cond-block-title{ font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--sage-deep); margin:0 0 14px; }
+  .cond-signs{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
+  .cond-signs li{ display:flex; align-items:flex-start; gap:10px; font-size:14.5px; line-height:1.55; color:var(--ink); }
+  .cond-signs li::before{ content:""; flex-shrink:0; width:6px; height:6px; border-radius:50%; background:var(--clay); margin-top:7px; }
+  .cond-help p{ font-size:14.5px; line-height:1.65; color:var(--ink-soft); margin:0; }
+  .cond-panel-footer{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    padding-top:26px; border-top:1px solid var(--line-soft);
+  }
+  .cond-disclaimer{ font-size:12.5px; color:var(--ink-faint); max-width:380px; line-height:1.5; }
+  .cond-learn-more{
+    display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:#F7F4EC;
+    background:var(--sage-deep); padding:12px 22px; border-radius:999px; font-size:14px; font-weight:600;
+    white-space:nowrap; transition:background .25s ease, transform .25s ease; box-shadow:var(--shadow-sm);
+  }
+  .cond-learn-more:hover{ background:var(--sage); transform:translateY(-1px); }
+  .cond-learn-more:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+  .cond-learn-more svg{ transition:transform .25s ease; }
+  .cond-learn-more:hover svg{ transform:translateX(3px); }
+
+  .cond-mobile-tabs{ display:none; }
+  @media (max-width:900px){
+    .cond-section{ padding:64px 0 72px; }
+    .cond-grid{ grid-template-columns:1fr; }
+    .cond-tablist{ display:none; }
+    .cond-mobile-tabs{
+      display:flex; gap:10px; overflow-x:auto; padding:6px 2px 16px; margin:0 -2px 6px;
+      scrollbar-width:none;
+    }
+    .cond-mobile-tabs::-webkit-scrollbar{ display:none; }
+    .cond-mobile-tab{
+      flex:0 0 auto; display:flex; align-items:center; gap:8px; font-family:inherit; font-size:14px; font-weight:600;
+      color:var(--ink-soft); background:var(--surface); border:1px solid var(--line-soft); border-radius:999px;
+      padding:10px 16px; white-space:nowrap; cursor:pointer;
+    }
+    .cond-mobile-tab .cond-num{ font-family:var(--font-display); color:var(--clay); font-size:13px; }
+    .cond-mobile-tab[aria-selected="true"]{ background:var(--sage-deep); color:#F7F4EC; border-color:var(--sage-deep); }
+    .cond-panel-outer{ padding:30px 22px 26px; min-height:0; }
+    .cond-panel-columns{ grid-template-columns:1fr; gap:24px; }
+    .cond-panel-footer{ flex-direction:column; align-items:flex-start; }
+    .cond-learn-more{ width:100%; justify-content:center; }
+  }
+
+  /* ================= TREATMENT JOURNEY ================= */
+  .mhtj-section{ padding:88px 0; background:var(--bg-alt); }
+  .mhtj-track-wrap{ margin:40px 0 44px; }
+  .mhtj-track-label{ font-size:13px; color:var(--ink-soft); margin:0 0 14px; font-weight:600; }
+  .mhtj-track{ display:flex; align-items:center; list-style:none; margin:0; padding:0; overflow-x:auto; scrollbar-width:none; }
+  .mhtj-track::-webkit-scrollbar{ display:none; }
+  .mhtj-track li{ display:flex; align-items:center; flex-shrink:0; }
+  .mhtj-track-step{ font-size:13.5px; font-weight:600; color:var(--ink); white-space:nowrap; padding:6px 0; }
+  .mhtj-track-connector{ width:clamp(20px,3vw,44px); height:1px; background:var(--line); margin:0 10px; position:relative; flex-shrink:0; }
+  .mhtj-track-connector::after{ content:""; position:absolute; top:-1.5px; right:0; width:4px; height:4px; border-radius:50%; background:var(--clay); }
+
+  .mhtj-timeline{ list-style:none; margin:0 0 44px; padding:0; position:relative; }
+  @media (min-width:860px){
+    .mhtj-timeline{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; padding-top:8px; }
+    .mhtj-timeline::before{ content:""; position:absolute; top:34px; left:22px; right:22px; height:1px; background:linear-gradient(to right, transparent, var(--line) 6%, var(--line) 94%, transparent); }
+  }
+  .mhtj-step{ position:relative; }
+  .mhtj-node{ width:10px; height:10px; border-radius:50%; background:var(--surface); border:2px solid var(--sage); margin:0 0 18px 12px; position:relative; z-index:1; display:none; }
+  @media (min-width:860px){ .mhtj-node{ display:block; } }
+  .mhtj-card{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:24px 22px 22px; box-shadow:var(--shadow-sm); position:relative; overflow:hidden; height:100%; }
+  .mhtj-card-top{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
+  .mhtj-numeral{ font-family:var(--font-display); font-weight:400; font-size:2.6rem; line-height:1; color:var(--sage); opacity:.16; position:absolute; top:10px; left:18px; user-select:none; pointer-events:none; }
+  .mhtj-icon{ width:34px; height:34px; border-radius:9px; background:var(--sage-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:auto; position:relative; z-index:1; }
+  .mhtj-icon svg{ width:18px; height:18px; stroke:var(--sage-deep); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .mhtj-title{ font-family:var(--font-display); font-weight:500; font-size:1.15rem; line-height:1.28; margin:6px 0 9px; color:#232B25; position:relative; z-index:1; }
+  .mhtj-summary{ font-size:.93rem; line-height:1.55; color:var(--ink-soft); margin:0 0 18px; position:relative; z-index:1; }
+  .mhtj-toggle{ display:inline-flex; align-items:center; gap:.4rem; background:none; border:none; padding:.35rem 0; font-family:var(--font-body); font-size:.88rem; font-weight:600; color:var(--sage-deep); cursor:pointer; }
+  .mhtj-toggle:hover{ color:var(--sage); }
+  .mhtj-toggle:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:3px; border-radius:4px; }
+  .mhtj-chev{ width:15px; height:15px; transition:transform .2s ease; flex-shrink:0; }
+  .mhtj-toggle[aria-expanded="true"] .mhtj-chev{ transform:rotate(180deg); }
+  .mhtj-detail{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s ease; }
+  .mhtj-detail-inner{ overflow:hidden; }
+  .mhtj-step.is-open .mhtj-detail{ grid-template-rows:1fr; }
+  .mhtj-detail-content{ padding-top:.9rem; margin-top:.9rem; border-top:1px solid var(--line-soft); }
+  .mhtj-detail-block{ margin-bottom:.95rem; }
+  .mhtj-detail-block:last-child{ margin-bottom:0; }
+  .mhtj-detail-label{ font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--clay); margin:0 0 .3rem; }
+  .mhtj-detail-text{ font-size:.9rem; line-height:1.6; color:var(--ink); margin:0; }
+
+  @media (max-width:859px){
+    .mhtj-timeline{ display:flex; flex-direction:column; gap:0; }
+    .mhtj-step{ padding-left:26px; position:relative; padding-bottom:22px; }
+    .mhtj-step::before{ content:""; position:absolute; left:4px; top:6px; bottom:0; width:1px; background:var(--line); }
+    .mhtj-step:last-child::before{ display:none; }
+    .mhtj-step::after{ content:""; position:absolute; left:0; top:6px; width:9px; height:9px; border-radius:50%; border:2px solid var(--sage); background:var(--surface); }
+    .mhtj-numeral{ font-size:2.1rem; top:8px; left:16px; }
+  }
+
+  .mhtj-callout{ background:var(--sage-pale); border:1px solid #D7E3D9; border-left:3px solid var(--sage); border-radius:var(--radius-sm); padding:26px 28px; margin-bottom:44px; }
+  .mhtj-callout-title{ font-family:var(--font-display); font-weight:500; font-size:1.2rem; margin:0 0 10px; color:var(--sage-deep); }
+  .mhtj-callout p{ font-size:.94rem; line-height:1.62; color:var(--ink); margin:0 0 .7rem; max-width:68ch; }
+  .mhtj-callout p:last-child{ margin-bottom:0; }
+
+  .mhtj-context{ border-top:1px solid var(--line-soft); padding-top:28px; }
+  .mhtj-context-title{ font-size:.82rem; font-weight:700; color:var(--ink-soft); margin:0 0 .75rem; text-transform:uppercase; letter-spacing:.05em; }
+  .mhtj-context p{ font-size:.92rem; line-height:1.62; color:var(--ink-soft); margin:0 0 1rem; max-width:70ch; }
+  .mhtj-settings{ display:flex; flex-wrap:wrap; gap:.55rem; list-style:none; padding:0; margin:0; }
+  .mhtj-settings li{ font-size:.83rem; color:var(--ink); background:var(--surface); border:1px solid var(--line-soft); border-radius:100px; padding:.4rem .85rem; }
+
+  @media (prefers-reduced-motion:reduce){ .mhtj-detail, .mhtj-chev{ transition:none; } }
+
+  /* ================= TREATMENTS GRID ================= */
+  .trt-section{ padding:88px 0; }
+  .trt-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:52px; }
+  @media (max-width:980px){ .trt-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .trt-grid{ grid-template-columns:1fr; } }
+
+  .trt-card{
+    position:relative; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-md);
+    padding:28px 24px 24px; text-align:left; display:flex; flex-direction:column; gap:12px;
+    cursor:pointer; width:100%; font-family:inherit; color:inherit; box-shadow:var(--shadow-sm);
+    transition:transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
+  }
+  .trt-card:hover, .trt-card:focus-visible{ transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:transparent; }
+  .trt-card:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+  .trt-card-top{ display:flex; align-items:flex-start; justify-content:space-between; }
+  .trt-number{ font-family:var(--font-display); font-size:.9rem; color:var(--clay); font-weight:500; }
+  .trt-icon{
+    width:40px; height:40px; border-radius:11px; background:var(--sage-pale);
+    display:flex; align-items:center; justify-content:center; color:var(--sage-deep);
+    transition:background .28s var(--ease), color .28s var(--ease), transform .28s var(--ease);
+  }
+  .trt-icon svg{ width:20px; height:20px; }
+  .trt-card:hover .trt-icon{ background:var(--sage-deep); color:#fff; transform:scale(1.06); }
+  .trt-card h3{ font-family:var(--font-display); font-weight:500; font-size:1.12rem; margin:4px 0 0; color:#232B25; }
+  .trt-card p{ font-size:.9rem; line-height:1.6; color:var(--ink-soft); margin:0; flex-grow:1; }
+  .trt-learn{ display:inline-flex; align-items:center; gap:6px; font-size:.87rem; font-weight:600; color:var(--sage-deep); margin-top:4px; }
+  .trt-learn .arrow{ transition:transform .25s ease; display:inline-block; }
+  .trt-card:hover .trt-learn .arrow{ transform:translateX(4px); }
+
+  .trt-overlay{
+    position:fixed; inset:0; background:rgba(43,51,44,.42); backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center; padding:24px; z-index:1000;
+    opacity:0; visibility:hidden; transition:opacity .25s ease;
+  }
+  .trt-overlay.is-open{ opacity:1; visibility:visible; }
+  .trt-panel{
+    background:var(--surface); border-radius:22px; max-width:560px; width:100%; max-height:82vh; overflow-y:auto;
+    padding:40px 36px 36px; position:relative; transform:translateY(14px) scale(.98); transition:transform .28s ease;
+    box-shadow:var(--shadow-lg);
+  }
+  .trt-overlay.is-open .trt-panel{ transform:translateY(0) scale(1); }
+  .trt-panel-close{
+    position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line-soft); background:var(--bg-alt); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink);
+  }
+  .trt-panel-close:hover{ background:var(--sage-deep); color:#fff; border-color:var(--sage-deep); }
+  .trt-panel-icon{ width:50px; height:50px; border-radius:14px; background:var(--sage-pale); color:var(--sage-deep); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+  .trt-panel-icon svg{ width:24px; height:24px; }
+  .trt-panel .trt-number{ display:block; margin-bottom:8px; }
+  .trt-panel h3{ font-family:var(--font-display); font-weight:500; font-size:1.5rem; margin:0 0 16px; color:var(--sage-deep); padding-right:20px; }
+  .trt-panel p{ font-size:.96rem; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  .trt-panel p:last-of-type{ margin-bottom:0; }
+
+  /* ================= RECOVERY ================= */
+  .rec-section{ padding:88px 0; background:var(--bg-alt); }
+  .rs-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:52px 0 48px; }
+  @media (max-width:900px){ .rs-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:620px){ .rs-grid{ grid-template-columns:1fr; } }
+  .rs-card{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); transition:box-shadow .35s var(--ease), border-color .35s var(--ease); overflow:hidden; }
+  .rs-card:hover{ border-color:rgba(124,154,130,.4); }
+  .rs-card[data-open="true"]{ box-shadow:var(--shadow-md); border-color:rgba(124,154,130,.4); }
+  .rs-card-head{ padding:26px 24px 22px; }
+  .rs-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px; }
+  .rs-num{ font-family:var(--font-display); font-size:.8125rem; font-weight:500; color:var(--clay); letter-spacing:.03em; padding-top:4px; }
+  .rs-icon{ width:42px; height:42px; border-radius:12px; background:var(--sage-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .rs-icon svg{ width:22px; height:22px; stroke:var(--sage-deep); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .rs-card-title{ font-family:var(--font-display); font-weight:500; font-size:1.1875rem; color:#232B25; line-height:1.3; margin:0 0 10px; }
+  .rs-card-summary{ font-size:.9375rem; color:var(--ink-soft); margin:0; }
+  .rs-toggle{ display:flex; align-items:center; gap:8px; margin-top:20px; background:none; border:none; padding:4px 2px; font-family:var(--font-body); font-size:.9375rem; font-weight:600; color:var(--sage-deep); cursor:pointer; border-radius:6px; }
+  .rs-toggle:hover{ color:var(--sage); }
+  .rs-toggle:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:3px; }
+  .rs-toggle-chevron{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform .3s var(--ease); flex-shrink:0; }
+  .rs-card[data-open="true"] .rs-toggle-chevron{ transform:rotate(180deg); }
+  .rs-panel-outer{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s var(--ease); }
+  .rs-card[data-open="true"] .rs-panel-outer{ grid-template-rows:1fr; }
+  .rs-panel-inner{ overflow:hidden; }
+  .rs-panel-content{ padding:0 24px 26px; border-top:1px solid var(--line-soft); margin-top:2px; padding-top:18px; }
+  .rs-panel-label{ font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--clay); margin:0 0 10px; }
+  .rs-panel-text{ font-size:.9375rem; color:var(--ink); margin:0; }
+
+  .rs-pathway{ margin-bottom:48px; }
+  .rs-pathway-title{ font-family:var(--font-display); font-weight:500; font-size:1.25rem; color:#232B25; margin:0 0 28px; }
+  .rs-path-track{ position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:6px; }
+  .rs-path-track::before{ content:""; position:absolute; top:9px; left:22px; right:22px; height:1px; background:repeating-linear-gradient(to right, var(--line) 0, var(--line) 6px, transparent 6px, transparent 12px); }
+  .rs-path-step{ position:relative; display:flex; flex-direction:column; align-items:center; gap:12px; flex:1; min-width:0; }
+  .rs-path-dot{ width:19px; height:19px; border-radius:50%; background:var(--bg-alt); border:2px solid var(--sage); flex-shrink:0; z-index:1; }
+  .rs-path-label{ font-size:.8125rem; font-weight:600; color:var(--ink); text-align:center; line-height:1.35; max-width:12ch; }
+  @media (max-width:700px){
+    .rs-path-track{ flex-direction:column; align-items:flex-start; gap:22px; padding-left:3px; }
+    .rs-path-track::before{ top:9px; bottom:9px; left:9px; right:auto; width:1px; height:auto; background:repeating-linear-gradient(to bottom, var(--line) 0, var(--line) 6px, transparent 6px, transparent 12px); }
+    .rs-path-step{ flex-direction:row; align-items:center; text-align:left; }
+    .rs-path-label{ text-align:left; max-width:none; }
+  }
+  .rs-pathway-note{ font-size:.9375rem; color:var(--ink-soft); max-width:62ch; margin:24px 0 0; }
+
+  .rs-callout{ background:var(--sage-deep); color:#F1F4EF; border-radius:var(--radius-lg); padding:36px 36px 32px; display:grid; grid-template-columns:auto 1fr; gap:20px; }
+  @media (max-width:620px){ .rs-callout{ grid-template-columns:1fr; padding:28px 24px; } }
+  .rs-callout-mark{ width:40px; height:40px; border-radius:10px; background:rgba(241,244,239,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .rs-callout-mark svg{ width:20px; height:20px; stroke:#EBD9B4; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .rs-callout-title{ font-family:var(--font-display); font-weight:500; font-size:1.375rem; margin:4px 0 12px; color:#fff; }
+  .rs-callout-text{ font-size:.9688rem; color:#D3DDCF; margin:0 0 10px; max-width:62ch; }
+  .rs-callout-text:last-child{ margin-bottom:0; }
+  .rs-callout-text strong{ color:#F1F4EF; font-weight:600; }
+
+  /* ================= SOCIAL CONNECTION ================= */
+  .sc-section{ padding:88px 0; }
+  .sc-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(32px,5vw,64px); align-items:start; margin-top:8px; }
+  .sc-visual{ position:relative; width:100%; aspect-ratio:4/5; max-height:560px; margin-top:40px; }
+  .sc-lines{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+  .sc-thread{ fill:none; stroke:var(--line); stroke-width:1.4; stroke-linecap:round; stroke-dasharray:3 3; transition:stroke .6s var(--ease), stroke-width .6s var(--ease), stroke-dasharray .6s var(--ease); vector-effect:non-scaling-stroke; }
+  .sc-thread.is-lit{ stroke:var(--sage-deep); stroke-width:2; stroke-dasharray:none; }
+  .sc-node{
+    position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-50%) scale(1);
+    width:var(--d); height:var(--d); border-radius:var(--blob); background:var(--fill);
+    display:flex; align-items:center; justify-content:center; text-align:center; box-shadow:var(--shadow-sm);
+    opacity:.5; transition:transform .5s var(--ease), opacity .5s var(--ease), box-shadow .5s var(--ease), border-radius .8s var(--ease);
+  }
+  .sc-node.is-lit{ opacity:1; transform:translate(-50%,-50%) scale(1.06); box-shadow:var(--shadow-md); }
+  .sc-node-label{ font-weight:600; font-size:var(--fs,12.5px); color:#fff; letter-spacing:.01em; line-height:1.15; padding:0 8%; }
+  .sc-node--1{ --x:27%; --y:10%; --d:78px; --fill:var(--sage); --fs:12.5px; --blob:46% 54% 61% 39%/41% 44% 56% 59%; }
+  .sc-node--2{ --x:76%; --y:26%; --d:84px; --fill:var(--blue); --fs:12.5px; --blob:55% 45% 40% 60%/55% 40% 60% 45%; }
+  .sc-node--3{ --x:18%; --y:47%; --d:86px; --fill:var(--clay); --fs:12.5px; --blob:60% 40% 55% 45%/45% 55% 45% 55%; }
+  .sc-node--4{ --x:74%; --y:65%; --d:90px; --fill:#BC7A52; --fs:12.5px; --blob:40% 60% 45% 55%/60% 40% 55% 45%; }
+  .sc-node--5{ --x:47%; --y:87%; --d:132px; --fill:var(--sage-deep); --fs:15px; --blob:48% 52% 46% 54%/54% 46% 58% 42%; opacity:.7; }
+  .sc-visual-bg{
+    position:absolute; inset:0; border-radius:var(--radius-lg);
+    background:
+      radial-gradient(circle at 22% 14%, rgba(124,154,130,.10), transparent 40%),
+      radial-gradient(circle at 78% 66%, rgba(199,154,102,.10), transparent 42%),
+      radial-gradient(circle at 45% 90%, rgba(79,107,87,.12), transparent 46%);
+  }
+  .sc-side{ display:flex; flex-direction:column; gap:20px; margin-top:40px; }
+  .sc-data-card{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:clamp(24px,3vw,32px); box-shadow:var(--shadow-sm); }
+  .sc-data-eyebrow{ font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--sage-deep); font-weight:600; margin:0 0 14px; }
+  .sc-stat-large{ font-family:var(--font-display); font-weight:500; font-size:clamp(48px,5.6vw,68px); line-height:1; color:var(--ink); letter-spacing:-.01em; margin:0; }
+  .sc-stat-desc{ margin-top:12px; font-size:14.5px; color:var(--ink-soft); max-width:42ch; }
+  .sc-stat-mini-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px; padding-top:20px; border-top:1px solid var(--line-soft); }
+  .sc-stat-mini .num{ display:block; font-weight:700; font-size:21px; color:var(--clay); margin-bottom:4px; }
+  .sc-stat-mini .label{ display:block; font-size:12.5px; color:var(--ink-faint); line-height:1.35; }
+  .sc-data-source{ margin-top:20px; font-size:12.5px; color:var(--ink-faint); line-height:1.5; }
+  .sc-data-source a{ color:var(--ink-soft); text-decoration:underline; text-underline-offset:2px; }
+  .sc-cards{ display:flex; flex-direction:column; gap:10px; }
+  .sc-card{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-md); box-shadow:var(--shadow-sm); overflow:hidden; transition:box-shadow .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease); }
+  .sc-card.is-active{ box-shadow:var(--shadow-md); border-color:transparent; }
+  .sc-card:hover{ transform:translateY(-1px); }
+  .sc-card-trigger{ width:100%; display:flex; align-items:center; gap:16px; padding:18px 20px; background:none; border:none; cursor:pointer; text-align:left; font-family:inherit; color:inherit; }
+  .sc-card-trigger:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:-2px; border-radius:var(--radius-md); }
+  .sc-card-num{ font-size:12.5px; font-weight:600; color:var(--card-accent); min-width:24px; }
+  .sc-card-title{ flex:1; font-weight:600; font-size:15.5px; color:var(--ink); }
+  .sc-card-chevron{ width:9px; height:9px; border-right:1.6px solid var(--ink-faint); border-bottom:1.6px solid var(--ink-faint); transform:rotate(-45deg); transition:transform .35s var(--ease); flex-shrink:0; }
+  .sc-card.is-active .sc-card-chevron{ transform:rotate(45deg); }
+  .sc-card-panel{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s var(--ease); }
+  .sc-card.is-active .sc-card-panel{ grid-template-rows:1fr; }
+  .sc-card-panel-inner{ overflow:hidden; }
+  .sc-card-panel p{ padding:0 20px 20px 60px; font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0; }
+  .sc-card[data-index="0"]{ --card-accent:var(--sage); }
+  .sc-card[data-index="1"]{ --card-accent:var(--blue); }
+  .sc-card[data-index="2"]{ --card-accent:var(--clay); }
+  .sc-card[data-index="3"]{ --card-accent:#BC7A52; }
+  .sc-callout{ margin-top:clamp(48px,6vw,72px); background:var(--bg-alt); border-radius:var(--radius-lg); padding:clamp(28px,4vw,40px) clamp(28px,5vw,48px); display:flex; flex-wrap:wrap; gap:24px 40px; align-items:center; justify-content:space-between; }
+  .sc-callout-title{ font-family:var(--font-display); font-weight:500; font-size:clamp(21px,2vw,25px); color:var(--sage-deep); margin:0 0 8px; }
+  .sc-callout-body{ font-size:14.5px; color:var(--ink-soft); max-width:60ch; margin:0; }
+  @media (max-width:900px){
+    .sc-grid{ grid-template-columns:1fr; }
+    .sc-visual{ aspect-ratio:4/4; max-height:420px; order:2; }
+    .sc-main{ display:flex; flex-direction:column; }
+    .sc-card-panel p{ padding-left:20px; }
+  }
+
+  /* ================= FIND SUPPORT ================= */
+  .fs-section{ padding:88px 0 96px; background:var(--bg-alt); }
+  .fs-pathway{ position:relative; margin:56px 0 64px; }
+  .fs-pathway-track{ list-style:none; margin:0; padding:0; display:flex; gap:20px; position:relative; align-items:flex-start; }
+  .fs-pathway-line{ position:absolute; left:0; right:0; top:34px; height:40px; pointer-events:none; z-index:0; }
+  .fs-pathway-line svg{ width:100%; height:100%; overflow:visible; display:block; }
+  .fs-line-base{ fill:none; stroke:var(--line); stroke-width:2; }
+  .fs-line-progress{ fill:none; stroke:var(--sage); stroke-width:2.5; transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1); }
+  .fs-stage{ position:relative; flex:1 1 0; min-width:0; z-index:1; }
+  .fs-stage-trigger{
+    all:unset; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; gap:12px; width:100%;
+    background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-md); padding:20px 18px;
+    cursor:pointer; transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .fs-stage-trigger:hover{ box-shadow:var(--shadow-sm); transform:translateY(-2px); }
+  .fs-stage-trigger:focus-visible{ outline:2.5px solid var(--sage-deep); outline-offset:3px; }
+  .fs-stage.is-active .fs-stage-trigger{ border-color:var(--sage); box-shadow:var(--shadow-md); background:linear-gradient(180deg,#FFFEFB 0%, var(--sage-pale) 220%); }
+  .fs-stage-top{ display:flex; align-items:center; gap:12px; }
+  .fs-stage-number{
+    font-family:var(--font-display); font-size:15px; font-weight:500; color:var(--sage-deep); background:var(--sage-pale);
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition:background .25s ease, color .25s ease, transform .25s ease;
+  }
+  .fs-stage.is-active .fs-stage-number{ background:var(--sage); color:#fff; transform:scale(1.06); }
+  .fs-stage-icon{ width:22px; height:22px; color:var(--ink-soft); flex-shrink:0; transition:color .25s ease; }
+  .fs-stage.is-active .fs-stage-icon{ color:var(--sage-deep); }
+  .fs-stage-title{ font-family:var(--font-display); font-weight:500; font-size:16.5px; line-height:1.3; margin:0; color:var(--ink); }
+  .fs-stage-short{ font-size:13.5px; color:var(--ink-soft); margin:0; line-height:1.55; }
+  .fs-stage-caret{ margin-left:auto; width:16px; height:16px; color:var(--ink-faint); transition:transform .3s ease; flex-shrink:0; }
+  .fs-stage.is-active .fs-stage-caret{ transform:rotate(180deg); color:var(--sage-deep); }
+  .fs-stage-link{ display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:14px; font-weight:600; color:var(--sage-deep); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s ease, gap .2s ease; }
+  .fs-stage-link:hover{ border-color:var(--sage-deep); gap:9px; }
+  .fs-stage-link svg{ width:14px; height:14px; }
+
+  .fs-detail-panel{
+    background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg);
+    padding:34px clamp(24px,4vw,44px); margin-top:24px; box-shadow:var(--shadow-md);
+  }
+  .fs-detail-panel-inner{ opacity:1; transform:translateY(0); transition:opacity .3s ease, transform .3s ease; }
+  .fs-detail-panel-inner.fs-fade{ opacity:0; transform:translateY(6px); }
+  .fs-detail-top{ display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .fs-detail-number{
+    font-family:var(--font-display); font-size:15px; font-weight:500; color:#fff; background:var(--sage-deep);
+    width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .fs-detail-title{ font-family:var(--font-display); font-weight:500; font-size:19px; color:var(--ink); margin:0; }
+  .fs-detail-text{ font-size:15.5px; line-height:1.75; color:var(--ink-soft); margin:0; max-width:72ch; }
+  @media (max-width:860px){
+    .fs-pathway-line{ display:none; }
+    .fs-pathway-track{ flex-direction:column; gap:0; padding-left:30px; }
+    .fs-pathway-track::before{ content:""; position:absolute; left:10px; top:18px; bottom:18px; width:2px; background:var(--line); }
+    .fs-pathway-track::after{ content:""; position:absolute; left:10px; top:18px; width:2px; height:var(--fs-progress,0%); background:var(--sage); transition:height .5s cubic-bezier(.4,0,.2,1); }
+    .fs-stage{ padding-bottom:22px; }
+    .fs-stage::before{
+      content:attr(data-num); position:absolute; left:-30px; top:18px; width:20px; height:20px; border-radius:50%;
+      background:var(--surface); border:2px solid var(--line); transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center;
+      font-size:9px; font-weight:700; color:var(--ink-faint); z-index:2; transition:border-color .25s ease, background .25s ease, color .25s ease;
+    }
+    .fs-stage.is-active::before{ border-color:var(--sage); background:var(--sage); color:#fff; }
+    .fs-stage-trigger{ padding:16px; }
+  }
+
+  .fs-lookup-panel{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:44px clamp(20px,4vw,44px); margin-bottom:48px; }
+  .fs-lookup-panel h3{ font-family:var(--font-display); font-weight:500; font-size:clamp(21px,2.4vw,26px); margin:0 0 28px; color:#232B25; }
+  .fs-lookup-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media (max-width:900px){ .fs-lookup-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .fs-lookup-grid{ grid-template-columns:1fr; } }
+  .fs-lookup-card{
+    display:flex; flex-direction:column; gap:12px; background:var(--bg-alt); border-radius:var(--radius-sm); padding:22px 20px;
+    text-decoration:none; color:var(--ink); border:1px solid transparent; transition:border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+  }
+  .fs-lookup-card:hover{ border-color:var(--sage); box-shadow:var(--shadow-sm); transform:translateY(-3px); }
+  .fs-lookup-icon{ width:34px; height:34px; border-radius:10px; background:var(--sage-pale); color:var(--sage-deep); display:flex; align-items:center; justify-content:center; }
+  .fs-lookup-icon svg{ width:18px; height:18px; }
+  .fs-lookup-card h4{ font-size:15px; font-weight:600; margin:0; }
+  .fs-lookup-card p{ font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5; }
+  .fs-lookup-arrow{ margin-top:auto; width:15px; height:15px; color:var(--sage-deep); transition:transform .2s ease; }
+  .fs-lookup-card:hover .fs-lookup-arrow{ transform:translateX(3px); }
+
+  .fs-urgent{ display:flex; gap:18px; align-items:flex-start; background:var(--clay-tint); border:1px solid #E6CFA6; border-radius:var(--radius-md); padding:26px clamp(18px,3vw,30px); }
+  .fs-urgent-icon{ width:40px; height:40px; border-radius:50%; background:#fff; color:var(--clay); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .fs-urgent-icon svg{ width:20px; height:20px; }
+  .fs-urgent h3{ font-family:var(--font-display); font-weight:500; font-size:18px; margin:0 0 6px; }
+  .fs-urgent p{ font-size:14.5px; color:var(--ink-soft); margin:0 0 10px; max-width:62ch; }
+  .fs-urgent-contact{ display:inline-block; font-size:13px; color:var(--ink-soft); background:rgba(255,255,255,.6); border:1px dashed #D8B98A; border-radius:8px; padding:6px 12px; }
+  .fs-urgent-contact strong{ color:var(--ink); }
+
+  /* ================= PROFESSIONALS ================= */
+  .mhp-section{ padding:88px 0; }
+  .mhp-selector{
+    display:grid; grid-template-columns:minmax(280px,380px) 1fr; gap:0;
+    background:var(--surface); border-radius:var(--radius-lg); border:1px solid var(--line-soft);
+    box-shadow:var(--shadow-lg); overflow:hidden; min-height:560px; margin-top:52px;
+  }
+  .mhp-list{ list-style:none; margin:0; padding:14px; border-right:1px solid var(--line-soft); background:linear-gradient(180deg, var(--bg-alt), var(--surface) 30%); display:flex; flex-direction:column; gap:4px; }
+  .mhp-item{ position:relative; }
+  .mhp-tab{
+    width:100%; display:flex; align-items:center; gap:16px; text-align:left; background:transparent; border:1px solid transparent;
+    border-radius:var(--radius-md); padding:14px 16px; cursor:pointer; color:var(--ink-soft);
+    transition:background .35s var(--ease), border-color .35s var(--ease);
+  }
+  .mhp-tab:hover{ background:var(--sage-pale); }
+  .mhp-tab:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:2px; }
+  .mhp-tab .mhp-num{ font-family:var(--font-display); font-size:13px; color:var(--ink-faint); min-width:22px; font-weight:500; }
+  .mhp-tab .mhp-icon{ width:38px; height:38px; border-radius:11px; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .35s var(--ease); }
+  .mhp-tab .mhp-icon svg{ width:19px; height:19px; stroke:var(--sage-deep); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .mhp-tab .mhp-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .mhp-tab .mhp-name{ font-weight:600; font-size:15px; color:var(--ink); }
+  .mhp-tab .mhp-role{ font-size:12.5px; color:var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .mhp-tab[aria-selected="true"]{ background:var(--surface); border-color:var(--line-soft); box-shadow:var(--shadow-sm); }
+  .mhp-tab[aria-selected="true"] .mhp-num{ color:var(--sage-deep); }
+  .mhp-tab[aria-selected="true"] .mhp-icon{ background:linear-gradient(145deg, var(--sage), var(--sage-deep)); }
+  .mhp-tab[aria-selected="true"] .mhp-icon svg{ stroke:#fff; }
+  .mhp-panel{ padding:52px 56px; position:relative; display:flex; flex-direction:column; justify-content:center; }
+  .mhp-panel-inner{ opacity:1; transform:translateY(0); transition:opacity .4s var(--ease), transform .4s var(--ease); }
+  .mhp-panel-inner.mhp-fade{ opacity:0; transform:translateY(8px); }
+  .mhp-panel-tag{ display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; color:var(--blue); background:var(--blue-pale); padding:6px 12px; border-radius:999px; margin-bottom:20px; }
+  .mhp-panel h3{ font-family:var(--font-display); font-weight:500; font-size:clamp(26px,3vw,34px); margin:0 0 16px; color:#232B25; }
+  .mhp-panel .mhp-definition{ font-size:16px; color:var(--ink-soft); line-height:1.7; max-width:60ch; margin:0 0 30px; }
+  .mhp-block{ margin-bottom:26px; }
+  .mhp-block-label{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--sage-deep); margin:0 0 12px; }
+  .mhp-tags{ display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none; }
+  .mhp-tags li{ font-size:13.5px; color:var(--ink); background:var(--sage-pale); border:1px solid rgba(79,107,87,.14); padding:7px 13px; border-radius:999px; }
+  .mhp-help-list{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .mhp-help-list li{ font-size:14.5px; color:var(--ink-soft); padding-left:20px; position:relative; }
+  .mhp-help-list li::before{ content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--blue); }
+  .mhp-rx{ display:flex; align-items:flex-start; gap:12px; background:var(--bg-alt); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:14px 16px; font-size:13.5px; color:var(--ink-soft); margin-bottom:28px; }
+  .mhp-rx svg{ width:18px; height:18px; flex-shrink:0; margin-top:1px; stroke:var(--sage-deep); fill:none; stroke-width:1.6; }
+  .mhp-rx strong{ color:var(--ink); font-weight:600; }
+  .mhp-learn{ display:inline-flex; align-items:center; gap:8px; font-size:14.5px; font-weight:600; color:var(--sage-deep); text-decoration:none; padding-bottom:2px; border-bottom:1px solid transparent; transition:gap .3s var(--ease), border-color .3s var(--ease); width:fit-content; }
+  .mhp-learn:hover{ gap:12px; border-color:var(--sage-deep); }
+  .mhp-learn svg{ width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; }
+  .mhp-compare{ margin-top:76px; }
+  .mhp-compare h2{ font-family:var(--font-display); font-weight:500; font-size:clamp(24px,2.6vw,30px); margin:0 0 28px; color:#232B25; }
+  .mhp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:760px){ .mhp-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .mhp-grid{ grid-template-columns:1fr; } }
+  .mhp-card{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-md); padding:22px 22px 20px; box-shadow:var(--shadow-sm); transition:transform .3s var(--ease), box-shadow .3s var(--ease); }
+  .mhp-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .mhp-card-title{ font-weight:600; font-size:15px; color:var(--ink); margin:0 0 8px; display:flex; align-items:center; gap:10px; }
+  .mhp-card-title .mhp-dot{ width:8px; height:8px; border-radius:50%; background:linear-gradient(145deg, var(--sage), var(--blue)); flex-shrink:0; }
+  .mhp-card-desc{ font-size:13.5px; color:var(--ink-faint); line-height:1.6; margin:0; }
+  .mhp-disclaimer{ font-size:12.5px; color:var(--ink-faint); max-width:760px; margin:26px 0 0; line-height:1.6; border-top:1px solid var(--line-soft); padding-top:20px; }
+  .mhp-mobile-tabs{ display:none; }
+  @media (max-width:900px){
+    .mhp-selector{ grid-template-columns:1fr; min-height:0; }
+    .mhp-list{ display:none; }
+    .mhp-mobile-tabs{ display:flex; gap:10px; overflow-x:auto; padding:16px; border-bottom:1px solid var(--line-soft); background:linear-gradient(180deg, var(--bg-alt), var(--surface)); scrollbar-width:none; }
+    .mhp-mobile-tabs::-webkit-scrollbar{ display:none; }
+    .mhp-mtab{ flex-shrink:0; display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; border:1px solid var(--line-soft); background:var(--surface); color:var(--ink-soft); font-size:13.5px; font-weight:600; cursor:pointer; min-height:44px; white-space:nowrap; }
+    .mhp-mtab svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6; }
+    .mhp-mtab[aria-selected="true"]{ background:linear-gradient(145deg, var(--sage), var(--sage-deep)); color:#fff; border-color:transparent; }
+    .mhp-panel{ padding:34px 22px 40px; }
+  }
+
+  /* ================= FAQ ================= */
+  .faq-section{ padding:88px 0 100px; background:var(--bg-alt); }
+  .faq-tabbar{
+    display:flex; flex-wrap:wrap; gap:10px; margin:48px 0 36px; padding:8px; background:var(--surface);
+    border:1px solid var(--line-soft); border-radius:999px; box-shadow:var(--shadow-sm); width:fit-content; max-width:100%;
+  }
+  .faq-tabbtn{
+    display:inline-flex; align-items:center; gap:9px;
+    border:none; background:transparent; cursor:pointer; padding:12px 20px 12px 16px; border-radius:999px; font-family:inherit;
+    font-size:13.5px; font-weight:600; color:var(--ink-soft); white-space:nowrap; transition:background .25s ease, color .25s ease;
+  }
+  .faq-tabbtn svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; opacity:.75; }
+  .faq-tabbtn:hover{ background:var(--sage-pale); color:var(--ink); }
+  .faq-tabbtn[aria-selected="true"]{ background:var(--sage-deep); color:#F7F4EC; }
+  .faq-tabbtn[aria-selected="true"] svg{ opacity:1; }
+  .faq-tabbtn:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:2px; }
+
+  .faq-panel{ display:none; }
+  .faq-panel.is-active{ display:block; }
+  .faq-list{ display:flex; flex-direction:column; gap:12px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); }
+  .faq-item[data-level="2"] .faq-q{ font-size:17px; }
+  .faq-item[data-level="3"] .faq-q{ font-size:15.5px; }
+  .faq-item[data-level="4"] .faq-q{ font-size:14.5px; }
+  .faq-q{
+    width:100%; display:flex; align-items:center; gap:14px; padding:18px 22px; background:none; border:none; cursor:pointer;
+    text-align:left; font-family:var(--font-display); font-weight:500; color:var(--ink); font-size:16px;
+  }
+  .faq-q:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:-2px; }
+  .faq-q-icon{
+    width:34px; height:34px; border-radius:10px; background:var(--sage-pale); color:var(--sage-deep);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .faq-q-icon svg{ width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .faq-item.is-open .faq-q-icon{ background:var(--sage-deep); color:#F7F4EC; }
+  .faq-q-dot{ width:7px; height:7px; border-radius:50%; background:var(--clay); flex-shrink:0; margin-left:11px; margin-right:4px; }
+  .faq-q-text{ flex:1; line-height:1.4; }
+  .faq-chevron{ width:9px; height:9px; border-right:1.6px solid var(--ink-faint); border-bottom:1.6px solid var(--ink-faint); transform:rotate(45deg); transition:transform .3s ease; flex-shrink:0; }
+  .faq-item.is-open .faq-chevron{ transform:rotate(-135deg); }
+  .faq-a{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s var(--ease); }
+  .faq-item.is-open .faq-a{ grid-template-rows:1fr; }
+  .faq-a-inner{ overflow:hidden; }
+  .faq-a p{ margin:0; padding:0 22px 20px 46px; font-size:14.5px; line-height:1.7; color:var(--ink-soft); }
+  .faq-item[data-level="2"] .faq-a p{ padding-left:72px; }
+  @media (max-width:600px){
+    .faq-a p{ padding-left:22px; }
+  }
+
+  .faq-cta{
+    margin-top:56px; background:linear-gradient(135deg, var(--sage-deep), #3E5647); border-radius:var(--radius-lg);
+    padding:44px clamp(24px,5vw,52px); color:#F7F4EC; display:flex; align-items:center; justify-content:space-between;
+    gap:28px; flex-wrap:wrap; position:relative; overflow:hidden; box-shadow:var(--shadow-lg);
+  }
+  .faq-cta::after{ content:""; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.1), transparent 70%); }
+  .faq-cta h3{ font-family:var(--font-display); font-weight:500; font-size:clamp(20px,2.4vw,26px); margin:0 0 10px; position:relative; }
+  .faq-cta p{ font-size:14.5px; color:rgba(247,244,236,.8); margin:0; max-width:48ch; position:relative; }
+  .faq-cta-actions{ display:flex; gap:16px; flex-wrap:wrap; position:relative; }
+  .faq-btn-onlight{
+    display:inline-flex; align-items:center; gap:9px; background:#F7F4EC; color:var(--sage-deep); font-weight:600;
+    font-size:14.5px; padding:14px 24px; border-radius:999px; text-decoration:none; white-space:nowrap;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .faq-btn-onlight:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.18); }
+
+  footer.site-footer{ padding:40px 0; background:var(--bg); border-top:1px solid var(--line-soft); }
+  footer.site-footer p{ font-size:12.5px; color:var(--ink-faint); text-align:center; max-width:760px; margin:0 auto; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<!-- ================= SITE NAV ================= -->
+<header class="site-nav" id="siteNav">
+  <div class="site-nav-inner">
+    <a class="site-nav-logo" href="#">
+      <span class="site-nav-logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.5 4 9.5 4C10.9 4 12.2 4.6 13 5.6L12 7L14 8.5L15.5 6.5L17.5 8L15.5 10L18 12"/><path d="M12 21C12 21 20 15.5 20 9.8C20 8.4 19.5 7.1 18.7 6.1"/></svg>
+      </span>
+      Mental Health Thailand
+    </a>
+
+    <button class="site-nav-toggle" id="siteNavToggle" type="button" aria-expanded="false" aria-controls="siteNavLinks" aria-label="Toggle navigation menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="siteNavToggleIcon"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <ul class="site-nav-links" id="siteNavLinks">
+      <li><a class="site-nav-link" href="#conditions">Conditions</a></li>
+      <li><a class="site-nav-link" href="#treatment-journey">Treatment</a></li>
+      <li><a class="site-nav-link" href="#recovery">Recovery</a></li>
+      <li><a class="site-nav-link" href="#social-connection">Connection</a></li>
+      <li><a class="site-nav-link" href="#find-support">Find Support</a></li>
+      <li><a class="site-nav-link" href="#professionals">Professionals</a></li>
+      <li><a class="site-nav-link" href="#services">FAQ</a></li>
+    </ul>
+
+    <a class="site-nav-cta" href="#find-support">
+      <span>Get Support</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<script>
+(function(){
+  var nav = document.getElementById('siteNav');
+  var toggle = document.getElementById('siteNavToggle');
+  var toggleIcon = document.getElementById('siteNavToggleIcon');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav-link'));
+
+  function closeMenu(){
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggleIcon.innerHTML = '<path d="M4 7h16M4 12h16M4 17h16"/>';
+  }
+  toggle.addEventListener('click', function(){
+    var isOpen = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggleIcon.innerHTML = isOpen ? '<path d="M5 5l14 14M19 5L5 19"/>' : '<path d="M4 7h16M4 12h16M4 17h16"/>';
+  });
+  links.forEach(function(link){ link.addEventListener('click', closeMenu); });
+
+  var sectionIds = links.map(function(l){ return l.getAttribute('href').slice(1); });
+
+  function updateActiveLink(){
+    var sections = sectionIds.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var probe = window.scrollY + nav.offsetHeight + 40;
+    var currentId = null;
+    sections.forEach(function(s){
+      if(s.offsetTop <= probe){ currentId = s.id; }
+    });
+    links.forEach(function(link){
+      link.classList.toggle('is-active', currentId !== null && link.getAttribute('href') === '#' + currentId);
+    });
+  }
+
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    updateActiveLink();
+  }, { passive:true });
+  window.addEventListener('load', updateActiveLink);
+  updateActiveLink();
+})();
+</script>
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <p class="eyebrow">Mental Health in Thailand</p>
+        <h1 id="hero-heading">Introduction to <em>Mental Health</em> in Thailand</h1>
+        <p class="hero-copy">
+          Mental-health support and treatment are available across Thailand. This site brings together
+          trusted, easy-to-understand information on common conditions, treatment approaches, and the
+          professionals and services that can help — so taking the next step feels possible rather than
+          overwhelming.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn-primary" href="#conditions" aria-label="Explore mental health support in Thailand">
+            Explore Mental Health Support
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="link-secondary" href="#treatments" aria-label="Learn about treatment options">
+            Learn About Treatment Options
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" role="img" aria-label="Abstract illustration of a breathing, calming outline map of Thailand surrounded by soft concentric rings">
+        <div class="hero-visual-glow" aria-hidden="true"></div>
+        <div class="hero-visual-ring" aria-hidden="true"></div>
+        <div class="hero-map-wrap" aria-hidden="true">
+          <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M148 8C158 22 152 34 162 44C172 54 190 52 196 68C202 84 188 92 194 108C200 124 218 128 220 146C222 164 204 172 208 190C212 208 232 214 230 234C228 254 206 256 204 276C202 296 216 306 210 326C205 344 188 350 186 368C184 384 194 396 186 408C179 418 166 412 158 402C150 392 152 378 142 372C132 366 118 372 110 362C102 352 108 338 98 330C88 322 74 328 68 316C62 304 72 292 64 282C56 272 40 274 36 260C32 246 46 238 42 224C38 210 22 208 22 192C22 176 38 172 38 156C38 140 24 134 28 118C32 102 50 100 52 84C54 68 40 60 48 46C56 32 74 34 84 22C94 10 108 4 122 8C128 10 140 6 148 8Z"
+              stroke="var(--sage-deep)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(79,107,87,0.05)"/>
+            <circle class="hero-map-dot" cx="120" cy="150" r="4"/>
+            <circle class="hero-map-dot" cx="140" cy="230" r="3"/>
+            <circle class="hero-map-dot" cx="110" cy="330" r="3.5"/>
+          </svg>
+        </div>
+        <span class="hero-visual-caption">Support available nationwide</span>
+      </div>
+    </div>
+
+    <div class="hero-cards">
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.5 4 9.5 4C10.9 4 12.2 4.6 13 5.6L12 7L14 8.5L15.5 6.5L17.5 8L15.5 10L18 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21C12 21 20 15.5 20 9.8C20 8.4 19.5 7.1 18.7 6.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Mental Health Conditions</h3>
+        <p>A brief introduction to common conditions — such as anxiety, depression, and burnout — and the symptoms often associated with them.</p>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Treatment &amp; Therapy</h3>
+        <p>An overview of evidence-based treatment and therapy options that may be available, so you know what questions to ask.</p>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19C3.5 15.7 6 13.5 9 13.5C12 13.5 14.5 15.7 14.5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 6.3C16.9 6.7 18 8 18 9.5C18 11 16.9 12.3 15.5 12.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Professional Support</h3>
+        <p>Why working with qualified mental-health professionals matters, and how they can guide a safe, personalised path forward.</p>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4C12 4 6 9 6 13.5C6 17.1 8.7 20 12 20C15.3 20 18 17.1 18 13.5C18 9 12 4 12 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 14.5C9.5 16.2 10.6 17.5 12 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Recovery &amp; Wellbeing</h3>
+        <p>Guidance on ongoing recovery, self-care habits, and wellbeing support that can help sustain progress over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section class="intro-section" id="intro" aria-labelledby="intro-heading">
+  <div class="wrap">
+    <p class="eyebrow reveal">Overview</p>
+    <h2 id="intro-heading" class="heading-lg reveal" style="max-width:700px;">Understanding Mental Health in Thailand</h2>
+    <p class="intro-text reveal" style="margin-bottom:0;">Mental health in Thailand covers a wide range of conditions, treatment approaches, and support systems available to residents and visitors alike, with care typically progressing from initial assessment through diagnosis, active treatment, and ongoing support for long-term recovery.</p>
+
+    <div class="intro-cards">
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.5 4 9.5 4C10.9 4 12.2 4.6 13 5.6L12 7L14 8.5L15.5 6.5L17.5 8L15.5 10L18 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21C12 21 20 15.5 20 9.8C20 8.4 19.5 7.1 18.7 6.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>Conditions Treated</h3>
+        <p>Common conditions treated across the country include anxiety, depression, trauma, burnout, and substance use disorders, among others.</p>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4.5" y="8" width="15" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9 20v-4.5h6V20M12 4v4M10 6h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Where Support Is Available</h3>
+        <p>Available support spans psychiatric hospitals, private clinics, counseling centers, and structured rehabilitation programs suited to different levels of need.</p>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12L15 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>How Treatment Progresses</h3>
+        <p>Treatment typically progresses from initial assessment through diagnosis, active treatment, and ongoing support designed to sustain long-term recovery.</p>
+      </div>
+    </div>
+
+    <p class="intro-tags-label reveal">Care settings mentioned above</p>
+    <ul class="intro-tags reveal">
+      <li><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 20.5v-11l7.5-5 7.5 5v11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8.5v4.5M9.7 10.7h4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20.5v-4h6v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Psychiatric Hospitals</li>
+      <li><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="8" width="15" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9 20v-4.5h6V20M12 4v4M10 6h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Private Clinics</li>
+      <li><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-9.5-9C1 8.5 2.8 5 6.3 5 8.2 5 10 6.1 12 8c2-1.9 3.8-3 5.7-3 3.5 0 5.3 3.5 3.8 7-2.5 4.6-9.5 9-9.5 9Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Counseling Centers</li>
+      <li><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c0-6 1-9 5-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21c0-5-1.5-8-5-11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 8c1.5-1.5 1.7-3.5 1-5-1.5.5-3 1.5-4 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10c-1.5-1-2-2.7-1.7-4.3 1.6 0 3.1.8 4 2.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Rehabilitation Programs</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= CONDITIONS ================= -->
+<section class="cond-section" id="conditions" aria-labelledby="cond-heading">
+  <div class="wrap">
+    <p class="eyebrow">Conditions we cover</p>
+    <h2 id="cond-heading" class="heading-lg" style="max-width:820px;">What Mental Health Conditions do we Cover in Thailand?</h2>
+    <p class="intro-text">Mental health conditions treated across Thailand span a wide range of emotional, psychological, and behavioral difficulties. Treatment settings range from public hospitals to private clinics and specialized rehabilitation centers, depending on severity. Select a condition to learn what it can look like and how care may help.</p>
+
+    <div class="cond-grid">
+      <div class="cond-mobile-tabs" id="condMobileTabs" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></div>
+      <ul class="cond-tablist" id="condTabList" role="tablist" aria-label="Mental health conditions" aria-orientation="vertical"></ul>
+      <div class="cond-panel-outer">
+        <div class="cond-panel" id="condPanel" role="tabpanel" tabindex="0"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const conditions = [
+    { id:"anxiety", name:"1. Anxiety",
+      definition:"Anxiety is a mental health condition marked by persistent worry, nervousness, or fear that extends beyond typical everyday stress. Physical symptoms such as rapid heartbeat, muscle tension, and difficulty concentrating often accompany the emotional experience.",
+      signs:["Physical symptoms such as rapid heartbeat, muscle tension, and difficulty concentrating","Interference with work, relationships, and daily responsibilities over time","Triggers ranging from specific situations to generalized, ongoing worry"],
+      help:"Treatment commonly combines therapy, coping skill development, and, in some cases, medication support. Early identification of anxiety symptoms often supports a more effective and manageable treatment process." },
+    { id:"depression", name:"2. Depression",
+      definition:"Depression is a mental health condition involving persistent low mood, reduced motivation, and diminished interest in previously enjoyable activities. Physical symptoms such as fatigue, changes in appetite, and sleep disruption frequently accompany the emotional experience.",
+      signs:["Physical symptoms such as fatigue, appetite changes, and sleep disruption","Effects on every area of daily life, including work, relationships, and personal care","Severity ranging from mild, manageable episodes to more severe presentations"],
+      help:"Treatment typically combines psychotherapy, lifestyle adjustments, and medication when clinically appropriate. Addressing depression early often improves the overall course of treatment and recovery." },
+    { id:"trauma-ptsd", name:"3. Trauma and PTSD",
+      definition:"Trauma and post-traumatic stress disorder develop after exposure to a distressing or life-threatening event that continues to affect psychological functioning. Flashbacks, nightmares, and heightened alertness commonly accompany this condition long after the original event has passed.",
+      signs:["Flashbacks, nightmares, and heightened alertness long after the original event","Avoidance of reminders connected to the trauma","Emotional numbness or difficulty maintaining close relationships"],
+      help:"Trauma-focused therapy approaches address these symptoms directly, helping process the underlying traumatic experience. Recovery often takes time, though structured treatment can meaningfully reduce symptom severity." },
+    { id:"burnout", name:"4. Burnout",
+      definition:"Burnout is a state of emotional and physical exhaustion that develops from prolonged, unmanaged stress, often work-related. Cynicism, detachment, and a reduced sense of accomplishment frequently accompany this exhaustion.",
+      signs:["Cynicism, detachment, and reduced sense of accomplishment","Deeper depletion that does not improve with rest alone","Risk of broader mental health difficulties, including anxiety and depression, when unaddressed"],
+      help:"Recovery typically involves reducing stressors, rebuilding boundaries, and restoring a healthier balance between work and personal life. Recognizing burnout early helps prevent more serious complications from developing." },
+    { id:"mood-disorders", name:"5. Mood Disorders",
+      definition:"Mood disorders involve significant and often persistent shifts in emotional state that affect daily functioning. Energy levels, sleep patterns, and decision-making abilities frequently fluctuate alongside these mood changes.",
+      signs:["Depressive episodes, manic episodes, or a combination of both","Fluctuating energy levels, sleep patterns, and decision-making abilities","Strain on relationships and responsibilities when episodes become severe or prolonged"],
+      help:"Treatment commonly involves a combination of medication, psychotherapy, and structured lifestyle support. Consistent treatment engagement plays an important role in managing symptoms over the long term." },
+    { id:"ocd", name:"6. Obsessive-Compulsive Disorder (OCD)",
+      definition:"Obsessive-compulsive disorder involves intrusive, unwanted thoughts paired with repetitive behaviors performed to reduce the distress those thoughts cause. These compulsive behaviors can consume significant time and interfere with daily responsibilities.",
+      signs:["Compulsive behaviors that consume significant time and interfere with responsibilities","Excessive checking, cleaning, or counting rituals tied to specific fears","A cycle in which compulsions provide only temporary relief before anxiety returns"],
+      help:"Cognitive behavioral therapy, particularly exposure-based approaches, forms a core part of effective treatment. Medication may also support treatment in cases involving more severe or persistent symptoms." },
+    { id:"eating-disorders", name:"7. Eating Disorders",
+      definition:"Eating disorders involve a disrupted relationship with food, weight, or body image that affects physical and emotional health. These conditions can include patterns of restriction, binge eating, or purging behaviors, depending on the specific diagnosis.",
+      signs:["Patterns of restriction, binge eating, or purging behaviors","Frequent co-occurrence with other mental health conditions, including anxiety and depression","Physical health complications when these patterns continue without treatment"],
+      help:"Specialized treatment addresses both the psychological drivers and the physical health consequences of the disorder. Nutritional support and medical monitoring often accompany psychological treatment for these conditions." },
+    { id:"substance-use", name:"8. Substance Use Disorders",
+      definition:"Substance use disorders involve compulsive use of drugs or alcohol despite clear harm to health, relationships, or daily functioning. Tolerance, cravings, and withdrawal symptoms commonly develop as dependence deepens over time.",
+      signs:["Tolerance, cravings, and withdrawal symptoms as dependence deepens over time","Frequent co-occurrence with other mental health conditions","Continued use despite clear negative consequences to health and daily life"],
+      help:"Treatment typically begins with assessment and, when necessary, medically supervised detox. Ongoing therapy and structured support help address the behavioral and psychological patterns that sustain substance use." }
+  ];
+
+  const tabList = document.getElementById('condTabList');
+  const mobileTabs = document.getElementById('condMobileTabs');
+  const panel = document.getElementById('condPanel');
+
+  function buildTabs(){
+    conditions.forEach((c,i)=>{
+      const num = String(i+1).padStart(2,'0');
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.className='cond-tab'; btn.type='button'; btn.id=`cond-tab-${c.id}`;
+      btn.setAttribute('role','tab'); btn.setAttribute('aria-selected', i===0?'true':'false');
+      btn.setAttribute('aria-controls','condPanel'); btn.setAttribute('tabindex', i===0?'0':'-1');
+      btn.innerHTML = `<span class="cond-num">${num}</span><span class="cond-label">${c.name.replace(/^\d+\.\s/,'')}</span><span class="cond-arrow" aria-hidden="true">&rarr;</span>`;
+      btn.addEventListener('click', ()=>selectCondition(i));
+      btn.addEventListener('keydown', (e)=>handleKeydown(e,i,tabList,'.cond-tab'));
+      li.appendChild(btn); tabList.appendChild(li);
+
+      const mbtn = document.createElement('button');
+      mbtn.className='cond-mobile-tab'; mbtn.type='button'; mbtn.id=`cond-mtab-${c.id}`;
+      mbtn.setAttribute('role','tab'); mbtn.setAttribute('aria-selected', i===0?'true':'false');
+      mbtn.setAttribute('aria-controls','condPanel'); mbtn.setAttribute('tabindex', i===0?'0':'-1');
+      mbtn.innerHTML = `<span class="cond-num">${num}</span><span>${c.name.replace(/^\d+\.\s/,'')}</span>`;
+      mbtn.addEventListener('click', ()=>selectCondition(i));
+      mbtn.addEventListener('keydown', (e)=>handleKeydown(e,i,mobileTabs,'.cond-mobile-tab'));
+      mobileTabs.appendChild(mbtn);
+    });
+  }
+
+  function handleKeydown(e,i,container,selector){
+    const items = Array.from(container.querySelectorAll(selector));
+    let next=null;
+    if(e.key==='ArrowDown'||e.key==='ArrowRight') next=(i+1)%items.length;
+    else if(e.key==='ArrowUp'||e.key==='ArrowLeft') next=(i-1+items.length)%items.length;
+    else if(e.key==='Home') next=0;
+    else if(e.key==='End') next=items.length-1;
+    if(next!==null){ e.preventDefault(); selectCondition(next); items[next].focus(); }
+  }
+
+  function renderPanel(c){
+    panel.innerHTML = `
+      <span class="cond-panel-tag">Condition overview</span>
+      <h3>${c.name}</h3>
+      <p class="cond-definition">${c.definition}</p>
+      <div class="cond-panel-columns">
+        <div><p class="cond-block-title">Common signs</p><ul class="cond-signs">${c.signs.map(s=>`<li>${s}</li>`).join('')}</ul></div>
+        <div class="cond-help"><p class="cond-block-title">How support can help</p><p>${c.help}</p></div>
+      </div>
+      <div class="cond-panel-footer">
+        <p class="cond-disclaimer">This overview is for general information only and is not a diagnosis. A licensed clinician can help determine what applies to you.</p>
+        <a class="cond-learn-more" href="#${c.id}">Learn more <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>`;
+  }
+
+  function selectCondition(i){
+    const c = conditions[i];
+    [tabList, mobileTabs].forEach(container=>{
+      const selectorClass = container===tabList ? '.cond-tab' : '.cond-mobile-tab';
+      Array.from(container.querySelectorAll(selectorClass)).forEach((btn,idx)=>{
+        const selected = idx===i;
+        btn.setAttribute('aria-selected', selected?'true':'false');
+        btn.setAttribute('tabindex', selected?'0':'-1');
+      });
+    });
+    const activeMobile = document.getElementById(`cond-mtab-${c.id}`);
+    if(activeMobile) activeMobile.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    panel.classList.add('cond-fade');
+    window.setTimeout(()=>{ renderPanel(c); panel.classList.remove('cond-fade'); }, 160);
+  }
+
+  buildTabs();
+  renderPanel(conditions[0]);
+})();
+</script>
+
+<!-- ================= TREATMENT JOURNEY ================= -->
+<section class="mhtj-section" id="treatment-journey" aria-labelledby="mhtj-heading">
+  <div class="wrap">
+    <p class="eyebrow">The treatment journey</p>
+    <h2 id="mhtj-heading" class="heading-lg" style="max-width:780px;">How does Mental Health Treatment Work in Thailand?</h2>
+    <p class="intro-text">Mental health treatment in Thailand generally begins with an assessment by a qualified professional, who then works with the individual to shape a personalised plan of care. Depending on what the person needs, this may involve therapy, medication, residential or outpatient rehabilitation, and ongoing support. Because every person's situation is different, the exact path through treatment — and how long each stage takes — varies from one person to the next.</p>
+
+    <div class="mhtj-track-wrap">
+      <p class="mhtj-track-label">The treatment journey, at a glance</p>
+      <ul class="mhtj-track">
+        <li><span class="mhtj-track-step">Concern</span></li>
+        <li><span class="mhtj-track-connector" aria-hidden="true"></span></li>
+        <li><span class="mhtj-track-step">Assessment</span></li>
+        <li><span class="mhtj-track-connector" aria-hidden="true"></span></li>
+        <li><span class="mhtj-track-step">Planning</span></li>
+        <li><span class="mhtj-track-connector" aria-hidden="true"></span></li>
+        <li><span class="mhtj-track-step">Treatment</span></li>
+        <li><span class="mhtj-track-connector" aria-hidden="true"></span></li>
+        <li><span class="mhtj-track-step">Rehabilitation</span></li>
+        <li><span class="mhtj-track-connector" aria-hidden="true"></span></li>
+        <li><span class="mhtj-track-step">Continuing care</span></li>
+      </ul>
+    </div>
+
+    <ul class="mhtj-timeline" id="mhtj-timeline">
+      <li class="mhtj-step" data-step="1">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">01</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20.5" y2="20.5"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Recognising a Concern</h3>
+          <p class="mhtj-summary">Treatment often starts when changes in mood, behaviour, or daily functioning are noticed — by the individual, a family member, or a healthcare professional.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-1" id="mhtj-toggle-1">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-1" role="region" aria-labelledby="mhtj-toggle-1">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">A concern may surface gradually or suddenly, through changes in sleep, energy, mood, relationships, or the ability to manage daily responsibilities. Sometimes the person notices it themselves; other times, it's a family member, friend, or health professional who raises it first.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">Naming a concern early opens the door to support, even before any formal assessment takes place.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+      <li class="mhtj-step" data-step="2">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">02</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="1.5"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Professional Assessment</h3>
+          <p class="mhtj-summary">A qualified mental health professional builds a clear picture of symptoms, history, and current needs to help guide what comes next.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-2" id="mhtj-toggle-2">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-2" role="region" aria-labelledby="mhtj-toggle-2">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">An assessment typically covers current symptoms, personal and family history, physical health, previous treatment, and the person's present circumstances and support system.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">This step doesn't diagnose on its own — it builds the information needed to decide on appropriate next steps.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+      <li class="mhtj-step" data-step="3">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">03</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><polyline points="8.5 13.5 10.5 15.5 15 11"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Diagnosis &amp; Treatment Planning</h3>
+          <p class="mhtj-summary">Where appropriate, a clinician may clarify a diagnosis and shape an individualised plan of care.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-3" id="mhtj-toggle-3">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-3" role="region" aria-labelledby="mhtj-toggle-3">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">A clinician may weigh symptoms, severity, personal circumstances, past treatment, individual preferences, and any co-occurring conditions when forming a plan.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">Not everyone needs a formal diagnosis before receiving support — some services focus on care and coping first, with diagnosis clarified over time.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+      <li class="mhtj-step" data-step="4">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">04</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 4v-4a2 2 0 0 1-1-1.7V6z"/><line x1="8" y1="7.5" x2="14" y2="7.5"/><line x1="8" y1="10.5" x2="12" y2="10.5"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Active Treatment</h3>
+          <p class="mhtj-summary">Treatment may draw on one or more approaches, chosen to match the individual's needs.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-4" id="mhtj-toggle-4">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-4" role="region" aria-labelledby="mhtj-toggle-4">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">Depending on the plan, this can include individual therapy, Cognitive Behavioural Therapy (CBT), group or family therapy, medication when clinically appropriate, and other evidence-informed psychological approaches.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">Not every person receives every type of treatment — approaches are combined based on what's likely to help most.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+      <li class="mhtj-step" data-step="5">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">05</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c3-6 4-9 8-13"/><path d="M12 7c4 4 5 7 8 13"/><circle cx="4.5" cy="20.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="19.5" cy="20.5" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Rehabilitation &amp; Recovery Support</h3>
+          <p class="mhtj-summary">Some people benefit from a more structured, supportive environment to build lasting skills for daily life.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-5" id="mhtj-toggle-5">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-5" role="region" aria-labelledby="mhtj-toggle-5">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">Rehabilitation or residential care can offer structure, routine, and focused support — often centred on coping skills, emotional regulation, healthy habits, and relapse or symptom-management planning.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">This level of care isn't necessary for everyone; it tends to suit situations where more intensive, hands-on support makes a meaningful difference.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+      <li class="mhtj-step" data-step="6">
+        <span class="mhtj-node" aria-hidden="true"></span>
+        <div class="mhtj-card">
+          <span class="mhtj-numeral" aria-hidden="true">06</span>
+          <div class="mhtj-card-top">
+            <span class="mhtj-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2.4"/><circle cx="17" cy="8" r="2.4"/><path d="M3.5 19c.5-3 2-4.7 3.5-4.7s3 1.7 3.5 4.7"/><path d="M13.5 19c.5-3 2-4.7 3.5-4.7s3 1.7 3.5 4.7"/></svg></span>
+          </div>
+          <h3 class="mhtj-title">Continuing Care &amp; Aftercare</h3>
+          <p class="mhtj-summary">Care can continue well beyond the initial treatment period, adapting as needs change.</p>
+          <button class="mhtj-toggle" aria-expanded="false" aria-controls="mhtj-detail-6" id="mhtj-toggle-6">
+            <span class="mhtj-toggle-text">Learn more</span>
+            <svg class="mhtj-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mhtj-detail" id="mhtj-detail-6" role="region" aria-labelledby="mhtj-toggle-6">
+            <div class="mhtj-detail-inner"><div class="mhtj-detail-content">
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">What happens</p><p class="mhtj-detail-text">This may include follow-up appointments, ongoing therapy, medication management where appropriate, outpatient or community services, and family or peer support.</p></div>
+              <div class="mhtj-detail-block"><p class="mhtj-detail-label">Why it matters</p><p class="mhtj-detail-text">Continuing care helps maintain the progress made during treatment and gives space to address new or changing needs over time.</p></div>
+            </div></div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="mhtj-callout">
+      <h3 class="mhtj-callout-title">Treatment Is Individualised</h3>
+      <p>Mental health treatment does not follow one universal pathway. The type, intensity, and duration of care depend on the individual's symptoms, diagnosis where applicable, clinical needs, circumstances, and response to treatment.</p>
+      <p>A person may receive outpatient care, residential treatment, or a combination of services depending on their needs.</p>
+    </div>
+
+    <div class="mhtj-context">
+      <p class="mhtj-context-title">Where care is accessed in Thailand</p>
+      <p>People seeking mental health treatment in Thailand may access care through a range of settings. Facilities differ in the services they offer, so the right setting depends on individual needs rather than a single standard path.</p>
+      <ul class="mhtj-settings">
+        <li>Hospitals</li>
+        <li>Mental health clinics</li>
+        <li>Private treatment centres</li>
+        <li>Residential rehabilitation programmes</li>
+        <li>Outpatient services</li>
+        <li>Specialist mental health providers</li>
+      </ul>
+    </div>
+
+    <div class="tj-cta" style="margin-top:44px; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; box-shadow:var(--shadow-sm);">
+      <div>
+        <h3 style="font-family:var(--font-display); font-weight:500; font-size:20px; margin:0 0 6px; color:#232B25;">Need Support?</h3>
+        <p style="font-size:14px; color:var(--ink-soft); margin:0; max-width:46ch;">Learn more about mental health treatment options and professional support available in Thailand.</p>
+      </div>
+      <a class="btn-primary" href="#treatments">Explore Treatment Options
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var toggles = document.querySelectorAll('.mhtj-toggle');
+  toggles.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var step = btn.closest('.mhtj-step');
+      var label = btn.querySelector('.mhtj-toggle-text');
+      btn.setAttribute('aria-expanded', String(!expanded));
+      step.classList.toggle('is-open', !expanded);
+      label.textContent = !expanded ? 'Show less' : 'Learn more';
+    });
+  });
+})();
+</script>
+
+<!-- ================= TREATMENTS GRID ================= -->
+<section class="trt-section" id="treatments" aria-labelledby="trt-heading">
+  <div class="wrap">
+    <p class="eyebrow">Treatment approaches</p>
+    <h2 id="trt-heading" class="heading-lg" style="max-width:780px;">What Mental Health Treatments are Available in Thailand?</h2>
+    <p class="intro-text" style="margin-bottom:0;">Mental-health treatment in Thailand can involve different approaches depending on a person's symptoms, diagnosis, circumstances, and individual needs. Treatment may include psychotherapy, psychiatric care, medication when appropriate, counselling, behavioural approaches, rehabilitation, and other supportive therapies.</p>
+
+    <div class="trt-grid" id="trtGrid"></div>
+  </div>
+</section>
+
+<div class="trt-overlay" id="trt-overlay">
+  <div class="trt-panel" role="dialog" aria-modal="true" id="trt-panel" aria-labelledby="trt-panel-title" tabindex="-1">
+    <button class="trt-panel-close" id="trt-panel-close" aria-label="Close details">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="trt-panel-icon" id="trt-panel-icon"></div>
+    <span class="trt-number" id="trt-panel-number"></span>
+    <h3 id="trt-panel-title"></h3>
+    <div id="trt-panel-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const icons = {
+    psychotherapy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c0 4-4 7-8 7-1.2 0-2.3-.2-3.3-.6L4 20l1.2-4.2C4.4 14.6 4 13.3 4 12c0-4 4-7 8-7s8 3 8 7Z"/><path d="M9 11h6M9 14h4"/></svg>',
+    medication: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="7" rx="3.5" transform="rotate(-45 12 13.5)"/><path d="M9 15 15 9"/></svg>',
+    counseling: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.5-9C1 8.5 2.8 5 6.3 5 8.2 5 10 6.1 12 8c2-1.9 3.8-3 5.7-3 3.5 0 5.3 3.5 3.8 7-2.5 4.6-9.5 9-9.5 9Z"/></svg>',
+    cbt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a4 4 0 0 0-4 4v1a3 3 0 0 0 0 6v1a4 4 0 0 0 4 4"/><path d="M15 4a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6v1a4 4 0 0 1-4 4"/><path d="M9 4v16M15 4v16"/></svg>',
+    grouptherapy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="2.3"/><circle cx="16" cy="9" r="2.3"/><path d="M3.5 19c.6-2.8 2.3-4.3 4.5-4.3s3.9 1.5 4.5 4.3"/><path d="M11.5 19c.6-2.8 2.3-4.3 4.5-4.3s3.9 1.5 4.5 4.3"/></svg>',
+    psychiatriccare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a4 4 0 0 0 8 0V3"/><path d="M18 8v3a4 4 0 0 1-4 4"/><circle cx="18" cy="6" r="1.6"/><circle cx="9" cy="19" r="2"/></svg>',
+    hospitaltreatment: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/><path d="M12 7v4M10 9h4"/></svg>',
+    rehabilitation: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6 1-9 5-13"/><path d="M12 21c0-5-1.5-8-5-11"/><path d="M17 8c1.5-1.5 1.7-3.5 1-5-1.5.5-3 1.5-4 3"/><path d="M7 10c-1.5-1-2-2.7-1.7-4.3 1.6 0 3.1.8 4 2.1"/></svg>'
+  };
+
+  const treatments = [
+    { key:"psychotherapy", title:"1. Psychotherapy",
+      summary:"Psychotherapy is a talk-based treatment approach that helps individuals address emotional difficulties and unhelpful thought patterns. Sessions typically involve structured conversation between a trained therapist and the individual seeking support.",
+      more:["Different therapeutic approaches exist, each suited to specific conditions and personal preferences.","Psychotherapy can address a wide range of concerns, including anxiety, depression, trauma, and relationship difficulties.","Many people combine psychotherapy with other forms of treatment for a more comprehensive approach to recovery."] },
+    { key:"medication", title:"2. Medication",
+      summary:"Medication supports the management of certain mental health conditions by addressing underlying chemical or physiological factors. A psychiatrist typically prescribes and monitors medication, adjusting the approach based on individual response over time.",
+      more:["Medication is often combined with psychotherapy for a more complete and effective treatment plan.","Side effects and individual response can vary, making ongoing monitoring an important part of this treatment approach.","Regular follow-up appointments help ensure the treatment plan remains appropriate as symptoms change over time."] },
+    { key:"counseling", title:"3. Counseling",
+      summary:"Counseling provides structured guidance and emotional support for individuals navigating specific life challenges or ongoing stress. Sessions often focus on practical coping strategies rather than deep psychological exploration alone.",
+      more:["Counseling can address a wide range of concerns, including relationship difficulties, grief, and general life stress.","This approach is often shorter-term than psychotherapy, though the two can overlap significantly in practice.","Many people find counseling a helpful first step before pursuing more specialized forms of care."] },
+    { key:"cbt", title:"4. Cognitive Behavioral Therapy (CBT)",
+      summary:"Cognitive behavioral therapy helps individuals identify and change unhelpful thought patterns that contribute to emotional distress. This structured, evidence-based approach focuses on the connection between thoughts, feelings, and behaviors.",
+      more:["Sessions often include specific exercises and homework designed to reinforce new coping skills between appointments.","CBT has been extensively studied and applied to conditions including anxiety, depression, and OCD.","Many people find CBT practical and directly applicable to daily challenges."] },
+    { key:"grouptherapy", title:"5. Group Therapy",
+      summary:"Group therapy connects individuals facing similar mental health challenges within a structured, professionally guided setting. Peer support within these sessions can reduce feelings of isolation connected to a specific condition or experience.",
+      more:["A trained facilitator guides discussion and ensures the group remains a safe, constructive space.","Shared experiences often provide insight and encouragement that individual therapy alone may not offer.","Combining individual therapy with group therapy often supports a more complete treatment plan."] },
+    { key:"psychiatriccare", title:"6. Psychiatric Care",
+      summary:"Psychiatric care involves medical evaluation and treatment provided by a physician specializing in mental health conditions. This type of care often includes diagnosis, medication management, and coordination with other treatment providers.",
+      more:["Psychiatric evaluation can identify underlying physical or neurological factors contributing to a mental health condition.","Ongoing psychiatric care is particularly important for conditions requiring careful medication monitoring over time.","Regular appointments help ensure psychiatric care remains responsive to a person's changing needs."] },
+    { key:"hospitaltreatment", title:"7. Hospital Treatment",
+      summary:"Hospital treatment provides intensive, structured care for individuals experiencing severe or complex mental health conditions. This level of care often becomes necessary when safety concerns or severe symptoms require close medical supervision.",
+      more:["Treatment within a hospital setting typically combines medical care, psychiatric support, and structured daily routines.","Length of stay varies depending on the severity of the condition and how a person responds to treatment.","Coordination with outpatient providers helps ensure continuity once hospital treatment concludes."] },
+    { key:"rehabilitation", title:"8. Rehabilitation",
+      summary:"Rehabilitation offers structured, extended support for individuals recovering from severe mental health or substance use conditions. This approach typically combines therapy, medical care, and daily structure within a supportive treatment environment.",
+      more:["Rehabilitation programs often address both the immediate condition and the underlying patterns that contributed to it.","The length of treatment varies depending on individual needs and the severity of the condition.","Aftercare planning forms an important part of rehabilitation, supporting continued progress once formal treatment ends."] }
+  ];
+
+  const grid = document.getElementById("trtGrid");
+  treatments.forEach((t,i)=>{
+    const num = String(i+1).padStart(2,"0");
+    const card = document.createElement("button");
+    card.className = "trt-card"; card.type = "button"; card.setAttribute("aria-haspopup","dialog");
+    card.innerHTML = `
+      <div class="trt-card-top">
+        <span class="trt-number">${num}</span>
+        <span class="trt-icon" aria-hidden="true">${icons[t.key]}</span>
+      </div>
+      <h3>${t.title.replace(/^\d+\.\s/,'')}</h3>
+      <p>${t.summary}</p>
+      <span class="trt-learn">Learn More <span class="arrow" aria-hidden="true">&rarr;</span></span>`;
+    card.addEventListener("click", ()=>openPanel(i));
+    grid.appendChild(card);
+  });
+
+  const overlay = document.getElementById("trt-overlay");
+  const panel = document.getElementById("trt-panel");
+  const panelTitle = document.getElementById("trt-panel-title");
+  const panelNumber = document.getElementById("trt-panel-number");
+  const panelIcon = document.getElementById("trt-panel-icon");
+  const panelBody = document.getElementById("trt-panel-body");
+  const closeBtn = document.getElementById("trt-panel-close");
+  let lastFocused = null;
+
+  function openPanel(index){
+    const t = treatments[index];
+    const num = String(index+1).padStart(2,"0");
+    panelNumber.textContent = num;
+    panelTitle.textContent = t.title.replace(/^\d+\.\s/,'');
+    panelIcon.innerHTML = icons[t.key];
+    panelBody.innerHTML = `<p>${t.summary}</p>` + t.more.map(p=>`<p>${p}</p>`).join("");
+    lastFocused = document.activeElement;
+    overlay.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    panel.focus();
+  }
+  function closePanel(){
+    overlay.classList.remove("is-open");
+    document.body.style.overflow = "";
+    if(lastFocused) lastFocused.focus();
+  }
+  closeBtn.addEventListener("click", closePanel);
+  overlay.addEventListener("click", (e)=>{ if(e.target===overlay) closePanel(); });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape" && overlay.classList.contains("is-open")) closePanel(); });
+})();
+</script>
+
+<!-- ================= RECOVERY ================= -->
+<section class="rec-section" id="recovery" aria-labelledby="rec-heading">
+  <div class="wrap">
+    <p class="eyebrow">Supporting recovery</p>
+    <h2 id="rec-heading" class="heading-lg" style="max-width:760px;">How can Mental Health Services Support Recovery?</h2>
+    <p class="intro-text" style="margin-bottom:0;">Mental health services support recovery by helping people <strong>understand their symptoms</strong>, access the <strong>right treatment</strong>, build <strong>practical coping skills</strong>, and strengthen everyday functioning, while keeping care connected over time. Recovery is individual, so the type and intensity of support is matched to each person's needs.</p>
+
+    <div class="rs-grid" id="rsGrid">
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">01</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><circle cx="11" cy="12" r="2.6"/><path d="m14.8 15.8 2 2"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-1">Assessment &amp; Understanding</h3>
+          <p class="rs-card-summary">A clear picture of what's happening guides the right kind of care.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-1" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-1" role="region" aria-labelledby="rs-title-1">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">A thorough assessment helps a clinician understand a person's history, symptoms, and daily life circumstances, not just a diagnosis. This understanding shapes which treatments are likely to help and in what order. It also gives the person a clearer picture of what they're experiencing, which is often a relieving first step.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">02</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8v8M8 12h8"/><rect x="4" y="4" width="16" height="16" rx="4"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-2">Evidence-Based Treatment</h3>
+          <p class="rs-card-summary">Access to therapies and, where appropriate, medication.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-2" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-2" role="region" aria-labelledby="rs-title-2">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">Psychological therapies help people address the underlying difficulties behind their symptoms, not just the symptoms themselves. When clinically appropriate, medication can help stabilise symptoms enough for other treatment to be effective. The combination and pacing depend on individual clinical judgment.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">03</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m14.8 9.2-2 4.8-4.8 2 2-4.8z"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-3">Coping &amp; Self-Management Skills</h3>
+          <p class="rs-card-summary">Practical tools for stress, emotions, and triggers.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-3" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-3" role="region" aria-labelledby="rs-title-3">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">Treatment often includes learning practical strategies for regulating difficult emotions, recognising early warning signs, and responding to triggers before they escalate. These skills give people more say in how they respond to challenging moments. Over time, this can reduce reliance on crisis-level support.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">04</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M8 3v3.5M16 3v3.5"/><path d="M8.5 13.5h1M12 13.5h1M15.5 13.5h1"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-4">Daily Functioning &amp; Healthy Routines</h3>
+          <p class="rs-card-summary">Rebuilding sleep, activity, and everyday structure.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-4" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-4" role="region" aria-labelledby="rs-title-4">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">Mental health difficulties often disrupt sleep, activity levels, and everyday routines. Services may help rebuild these areas gradually, alongside therapy, since stable routines can make symptoms more manageable. Small, sustainable changes are generally prioritised over sudden, large ones.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">05</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="8.5" r="2.6"/><circle cx="16" cy="9.5" r="2.2"/><path d="M3.5 19c.6-3 2.5-4.7 5-4.7s4.4 1.7 5 4.7"/><path d="M14.3 14.6c2 .2 3.5 1.7 4 4.4"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-5">Social &amp; Emotional Support</h3>
+          <p class="rs-card-summary">Reducing isolation through the right kind of connection.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-5" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-5" role="region" aria-labelledby="rs-title-5">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">Individual therapy, group support, family involvement, or peer support can all play a role, depending on what feels right for the person. Where appropriate, these connections help reduce isolation and offer perspective from others who understand. Not every form of support suits every person, so options are usually introduced gradually.</p>
+          </div>
+        </div></div>
+      </article>
+
+      <article class="rs-card" data-open="false">
+        <div class="rs-card-head">
+          <div class="rs-card-top">
+            <span class="rs-num">06</span>
+            <span class="rs-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.9-5.4M20 12a8 8 0 0 1-13.9 5.4"/><path d="m17 4 1 3-3 .5M7 20l-1-3 3-.5"/></svg></span>
+          </div>
+          <h3 class="rs-card-title" id="rs-title-6">Continuing Care &amp; Aftercare</h3>
+          <p class="rs-card-summary">Keeping care connected after an initial program ends.</p>
+          <button class="rs-toggle" type="button" aria-expanded="false" aria-controls="rs-panel-6" data-card-toggle>
+            <span data-label>Learn More</span>
+            <svg class="rs-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div class="rs-panel-outer"><div class="rs-panel-inner">
+          <div class="rs-panel-content" id="rs-panel-6" role="region" aria-labelledby="rs-title-6">
+            <p class="rs-panel-label">How it supports recovery</p>
+            <p class="rs-panel-text">Follow-up appointments, ongoing therapy, and community-based services help sustain progress made during an initial treatment period. A recovery plan can be revisited and adjusted as circumstances change, rather than ending abruptly. This continuity helps lower the chance of setbacks going unnoticed.</p>
+          </div>
+        </div></div>
+      </article>
+    </div>
+
+    <div class="rs-pathway">
+      <h3 class="rs-pathway-title">A general shape of recovery, not a fixed sequence</h3>
+      <div class="rs-path-track">
+        <div class="rs-path-step"><span class="rs-path-dot"></span><span class="rs-path-label">Understand</span></div>
+        <div class="rs-path-step"><span class="rs-path-dot"></span><span class="rs-path-label">Treat</span></div>
+        <div class="rs-path-step"><span class="rs-path-dot"></span><span class="rs-path-label">Build skills</span></div>
+        <div class="rs-path-step"><span class="rs-path-dot"></span><span class="rs-path-label">Strengthen functioning</span></div>
+        <div class="rs-path-step"><span class="rs-path-dot"></span><span class="rs-path-label">Maintain support</span></div>
+      </div>
+      <p class="rs-pathway-note">Recovery can involve several areas of support at the same time. Progress may not be linear, and treatment plans can be adjusted as an individual's needs change.</p>
+    </div>
+
+    <div class="rs-callout" role="note">
+      <span class="rs-callout-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-9C.7 8.3 2 5 5.3 5c1.9 0 3.3 1 4.7 2.7C11.4 6 12.8 5 14.7 5 18 5 19.3 8.3 21.5 12 19 16.6 12 21 12 21Z"/></svg></span>
+      <div>
+        <h3 class="rs-callout-title">Recovery looks different for everyone</h3>
+        <p class="rs-callout-text">There is no single approach to mental health recovery. Some people may benefit from short-term support, while others may need longer-term treatment or a combination of services.</p>
+        <p class="rs-callout-text"><strong>The appropriate level of care should be determined with qualified mental health professionals.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('#rsGrid [data-card-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var card = btn.closest('.rs-card');
+      var isOpen = card.getAttribute('data-open') === 'true';
+      var next = !isOpen;
+      card.setAttribute('data-open', String(next));
+      btn.setAttribute('aria-expanded', String(next));
+      btn.querySelector('[data-label]').textContent = next ? 'Show Less' : 'Learn More';
+    });
+  });
+</script>
+
+<!-- ================= SOCIAL CONNECTION ================= -->
+<section class="sc-section" id="social-connection" aria-labelledby="sc-heading">
+  <div class="wrap">
+    <div class="sc-grid">
+      <div class="sc-main">
+        <p class="eyebrow">Social connection &amp; well-being</p>
+        <h2 id="sc-heading" class="heading-lg" style="max-width:15ch;">Why does Social Connection Matter for Mental Health in Thailand?</h2>
+        <p class="intro-text" style="margin-bottom:0;">Social connection can play an important role in mental well-being. Supportive relationships, meaningful connections, and a sense of community may help people feel less isolated and provide emotional and practical support during difficult periods.</p>
+
+        <div class="sc-visual" role="img" aria-label="Illustration showing how relationships, community, belonging, and support connect to mental well-being">
+          <div class="sc-visual-bg" aria-hidden="true"></div>
+          <svg class="sc-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="sc-thread" data-line="1" d="M27,10 C48,10 60,18 76,26" />
+            <path class="sc-thread" data-line="2" d="M76,26 C55,33 34,36 18,47" />
+            <path class="sc-thread" data-line="3" d="M18,47 C32,56 55,58 74,65" />
+            <path class="sc-thread" data-line="4" d="M74,65 C62,76 56,81 47,87" />
+          </svg>
+          <div class="sc-node sc-node--1" data-node="1"><span class="sc-node-label">Relationships</span></div>
+          <div class="sc-node sc-node--2" data-node="2"><span class="sc-node-label">Community</span></div>
+          <div class="sc-node sc-node--3" data-node="3"><span class="sc-node-label">Belonging</span></div>
+          <div class="sc-node sc-node--4" data-node="4"><span class="sc-node-label">Support</span></div>
+          <div class="sc-node sc-node--5" data-node="5"><span class="sc-node-label">Mental<br>Well-being</span></div>
+        </div>
+      </div>
+
+      <div class="sc-side">
+        <div class="sc-data-card">
+          <p class="sc-data-eyebrow">WHO Thailand</p>
+          <p class="sc-stat-large">1 in 4</p>
+          <p class="sc-stat-desc">older adults in Thailand are estimated by WHO to experience social isolation — one part of a wider pattern of loneliness and social disconnection affecting people across age groups.</p>
+          <div class="sc-stat-mini-row">
+            <div class="sc-stat-mini"><span class="num">5–15%</span><span class="label">of adolescents report chronic loneliness</span></div>
+            <div class="sc-stat-mini"><span class="num">+32%</span><span class="label">higher risk of early death linked to social isolation</span></div>
+          </div>
+          <p class="sc-data-source">Source: World Health Organization (WHO) Thailand — <a href="https://www.who.int/thailand/news/feature-stories/detail/mental-health-and-social-connection-in-thailand" target="_blank" rel="noopener">"Mental Health and Social Connection in Thailand," 14 July 2025</a>.</p>
+        </div>
+
+        <div class="sc-cards" id="scCards">
+          <div class="sc-card is-active" data-index="0">
+            <button class="sc-card-trigger" id="sc-trigger-0" aria-expanded="true" aria-controls="sc-panel-0">
+              <span class="sc-card-num" aria-hidden="true">01</span><span class="sc-card-title">Loneliness</span><span class="sc-card-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="sc-card-panel" id="sc-panel-0" role="region" aria-labelledby="sc-trigger-0"><div class="sc-card-panel-inner"><p>Loneliness describes the gap between the connection a person wants and the connection they actually experience. This gap can persist even when a person is surrounded by others, since loneliness reflects emotional quality rather than the number of relationships present.</p></div></div>
+          </div>
+          <div class="sc-card" data-index="1">
+            <button class="sc-card-trigger" id="sc-trigger-1" aria-expanded="false" aria-controls="sc-panel-1">
+              <span class="sc-card-num" aria-hidden="true">02</span><span class="sc-card-title">Social Isolation</span><span class="sc-card-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="sc-card-panel" id="sc-panel-1" role="region" aria-labelledby="sc-trigger-1"><div class="sc-card-panel-inner"><p>Social isolation refers to a measurable lack of contact with others, distinct from the subjective feeling of loneliness. Reduced social contact can develop gradually, particularly during major life transitions such as relocation, illness, or retirement.</p></div></div>
+          </div>
+          <div class="sc-card" data-index="2">
+            <button class="sc-card-trigger" id="sc-trigger-2" aria-expanded="false" aria-controls="sc-panel-2">
+              <span class="sc-card-num" aria-hidden="true">03</span><span class="sc-card-title">Relationships &amp; Community</span><span class="sc-card-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="sc-card-panel" id="sc-panel-2" role="region" aria-labelledby="sc-trigger-2"><div class="sc-card-panel-inner"><p>Close relationships and a sense of community give a person practical and emotional resources to draw on during difficult periods. Cultural values in Thailand often place strong emphasis on family and community connection, which can reinforce this support.</p></div></div>
+          </div>
+          <div class="sc-card" data-index="3">
+            <button class="sc-card-trigger" id="sc-trigger-3" aria-expanded="false" aria-controls="sc-panel-3">
+              <span class="sc-card-num" aria-hidden="true">04</span><span class="sc-card-title">Mental Well-being</span><span class="sc-card-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="sc-card-panel" id="sc-panel-3" role="region" aria-labelledby="sc-trigger-3"><div class="sc-card-panel-inner"><p>Meaningful social connection can contribute to a person's overall sense of belonging, support, and well-being. Social connection is one part of a fuller picture of mental health, complementing rather than replacing professional care.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-callout">
+      <div>
+        <p class="sc-callout-title">Connection is part of mental wellbeing</p>
+        <p class="sc-callout-body">Building supportive relationships and staying connected with others can be an important part of maintaining overall wellbeing. For people experiencing significant mental health difficulties, social support can complement professional care and treatment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#scCards .sc-card'));
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.sc-node'));
+  var threads = Array.prototype.slice.call(document.querySelectorAll('.sc-thread'));
+  var stops = [1,2,3,5];
+
+  function applyStop(cardIndex){
+    var nodeCount = stops[cardIndex];
+    var threadCount = Math.max(0, Math.min(nodeCount-1, 4));
+    nodes.forEach(function(node){
+      var n = parseInt(node.getAttribute('data-node'),10);
+      node.classList.toggle('is-lit', n<=nodeCount);
+    });
+    threads.forEach(function(thread){
+      var l = parseInt(thread.getAttribute('data-line'),10);
+      thread.classList.toggle('is-lit', l<=threadCount);
+    });
+  }
+  function activate(cardIndex){
+    cards.forEach(function(card,i){
+      var isActive = i===cardIndex;
+      card.classList.toggle('is-active', isActive);
+      var trigger = card.querySelector('.sc-card-trigger');
+      if(trigger) trigger.setAttribute('aria-expanded', String(isActive));
+    });
+    applyStop(cardIndex);
+  }
+  cards.forEach(function(card,i){
+    var trigger = card.querySelector('.sc-card-trigger');
+    trigger.addEventListener('click', function(){ activate(i); });
+  });
+  activate(0);
+})();
+</script>
+
+<!-- ================= FIND SUPPORT ================= -->
+<section class="fs-section" id="find-support" aria-labelledby="fs-heading">
+  <div class="wrap">
+    <p class="eyebrow">Getting support</p>
+    <h2 id="fs-heading" class="heading-lg" style="max-width:18ch;">How can you Find Mental Health Support in Thailand?</h2>
+    <p class="intro-text">You can find mental health support in Thailand by speaking to a qualified professional about a specific concern. Support may be available through licensed professionals, specialized clinics, hospitals, community resources, and other appropriate options depending on individual needs.</p>
+
+    <nav class="fs-pathway" aria-label="Steps to finding mental health support">
+      <div class="fs-pathway-line" aria-hidden="true">
+        <svg viewBox="0 0 1000 40" preserveAspectRatio="none">
+          <path class="fs-line-base" d="M 20,20 C 140,-6 200,46 300,20 C 400,-6 460,46 560,20 C 660,-6 720,46 820,20 C 880,4 900,20 980,20" />
+          <path class="fs-line-progress" id="fsLineProgress" d="M 20,20 C 140,-6 200,46 300,20 C 400,-6 460,46 560,20 C 660,-6 720,46 820,20 C 880,4 900,20 980,20" />
+        </svg>
+      </div>
+      <ol class="fs-pathway-track" id="fsPathwayTrack">
+        <li class="fs-stage is-active" data-num="01">
+          <button class="fs-stage-trigger" id="fsBtn-1" aria-expanded="true" aria-controls="fsDetail-1" data-index="0">
+            <span class="fs-stage-top">
+              <span class="fs-stage-number" aria-hidden="true">01</span>
+              <svg class="fs-stage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-3.6 0-6.2 2.7-6.2 6.1 0 2.6 1.6 4.3 2.3 5.6.4.7.6 1.3.6 2.1v1.2h6.6v-1.2c0-.8.2-1.4.6-2.1.7-1.3 2.3-3 2.3-5.6 0-3.4-2.6-6.1-6.2-6.1Z"/><path d="M9.4 21.3h5.2"/><path d="M9 12.2l1.6-2.4 1.7 3.4 1.4-1.8"/></svg>
+              <svg class="fs-stage-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+            <span class="fs-stage-title">Recognize your needs</span>
+            <span class="fs-stage-short">Notice persistent changes in mood, thoughts, or daily life.</span>
+          </button>
+        </li>
+        <li class="fs-stage" data-num="02">
+          <button class="fs-stage-trigger" id="fsBtn-2" aria-expanded="false" aria-controls="fsDetail-2" data-index="1">
+            <span class="fs-stage-top">
+              <span class="fs-stage-number" aria-hidden="true">02</span>
+              <svg class="fs-stage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5c0-1.4 1.1-2.5 2.5-2.5h11c1.4 0 2.5 1.1 2.5 2.5v7c0 1.4-1.1 2.5-2.5 2.5H10l-4.3 3.4c-.4.3-1 0-1-.5v-2.9H6.5c-1.4 0-2.5-1.1-2.5-2.5v-7Z"/><path d="M8.5 9.5h7M8.5 12.2h4.5"/></svg>
+              <svg class="fs-stage-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+            <span class="fs-stage-title">Speak with a professional</span>
+            <span class="fs-stage-short">Talk through your concerns with someone qualified.</span>
+          </button>
+        </li>
+        <li class="fs-stage" data-num="03">
+          <button class="fs-stage-trigger" id="fsBtn-3" aria-expanded="false" aria-controls="fsDetail-3" data-index="2">
+            <span class="fs-stage-top">
+              <span class="fs-stage-number" aria-hidden="true">03</span>
+              <svg class="fs-stage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 20.5v-11l7.5-5 7.5 5v11"/><path d="M8 20.5v-5h8v5"/><path d="M12 8.2v4M10 10.2h4"/></svg>
+              <svg class="fs-stage-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+            <span class="fs-stage-title">Explore clinics &amp; hospitals</span>
+            <span class="fs-stage-short">Look into specialized or hospital-based care.</span>
+          </button>
+        </li>
+        <li class="fs-stage" data-num="04">
+          <button class="fs-stage-trigger" id="fsBtn-4" aria-expanded="false" aria-controls="fsDetail-4" data-index="3">
+            <span class="fs-stage-top">
+              <span class="fs-stage-number" aria-hidden="true">04</span>
+              <svg class="fs-stage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9.5" r="2.6"/><circle cx="15.5" cy="10.5" r="2.1"/><path d="M4 19c.4-2.7 2.3-4.4 5-4.4s4.6 1.7 5 4.4"/><path d="M14.3 14.9c2.1.2 3.6 1.7 3.9 4.1"/></svg>
+              <svg class="fs-stage-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+            <span class="fs-stage-title">Consider community support</span>
+            <span class="fs-stage-short">Draw on peer, family, or community networks too.</span>
+          </button>
+        </li>
+        <li class="fs-stage" data-num="05">
+          <button class="fs-stage-trigger" id="fsBtn-5" aria-expanded="false" aria-controls="fsDetail-5" data-index="4">
+            <span class="fs-stage-top">
+              <span class="fs-stage-number" aria-hidden="true">05</span>
+              <svg class="fs-stage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12A7.5 7.5 0 1 1 15.8 5.6"/><path d="M19.5 5.5v4h-4"/><path d="M12 9.5v3l2 1.3"/></svg>
+              <svg class="fs-stage-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+            <span class="fs-stage-title">Continue with appropriate support</span>
+            <span class="fs-stage-short">Ongoing care shaped around what you need.</span>
+          </button>
+        </li>
+      </ol>
+
+      <div class="fs-detail-panel">
+        <div class="fs-detail-panel-inner" id="fsDetailPanel"></div>
+      </div>
+    </nav>
+
+    <div class="fs-lookup-panel">
+      <h3>Where can you look for mental health support?</h3>
+      <div class="fs-lookup-grid">
+        <a class="fs-lookup-card" href="#professionals">
+          <span class="fs-lookup-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c.6-3.6 3.2-5.7 7-5.7s6.4 2.1 7 5.7"/></svg></span>
+          <h4>Mental Health Professionals</h4>
+          <p>Psychiatrists, psychologists, counselors, therapists, and other trained specialists working in mental health care.</p>
+          <svg class="fs-lookup-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fs-lookup-card" href="#services">
+          <span class="fs-lookup-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="8" width="15" height="12" rx="1.5"/><path d="M9 20v-4.5h6V20M12 4v4M10 6h4"/></svg></span>
+          <h4>Mental Health Clinics</h4>
+          <p>Clinics focused specifically on mental health, often offering assessment, therapy, counseling, and psychiatric services.</p>
+          <svg class="fs-lookup-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fs-lookup-card" href="#services">
+          <span class="fs-lookup-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 20.5v-11l7.5-5 7.5 5v11"/><path d="M12 8.5v4.5M9.7 10.7h4.6"/><path d="M9 20.5v-4h6v4"/></svg></span>
+          <h4>Hospitals</h4>
+          <p>Hospitals become relevant when a condition requires closer medical supervision or more intensive psychiatric care.</p>
+          <svg class="fs-lookup-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fs-lookup-card" href="#social-connection">
+          <span class="fs-lookup-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.3" cy="9" r="2.4"/><circle cx="15.7" cy="9.8" r="2"/><path d="M3.8 19c.4-2.5 2.1-4 4.5-4s4.1 1.5 4.5 4M13.5 15.2c1.9.2 3.3 1.6 3.6 3.8"/></svg></span>
+          <h4>Community Services</h4>
+          <p>Local organizations, peer support networks, family resources, and other community-based forms of support.</p>
+          <svg class="fs-lookup-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="fs-urgent" role="note" aria-labelledby="fs-urgent-heading">
+      <span class="fs-urgent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 21 19.5H3L12 3.5Z"/><path d="M12 10v4.2M12 17v.1"/></svg></span>
+      <div>
+        <h3 id="fs-urgent-heading">If you need urgent help</h3>
+        <p>Seek urgent assistance from local emergency services or the nearest emergency department if you or someone else is in immediate danger or experiencing a mental health emergency.</p>
+        <span class="fs-urgent-contact"><strong>Editable:</strong> insert local emergency contact number and source here before publishing.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var track = document.getElementById('fsPathwayTrack');
+  var stages = Array.prototype.slice.call(track.querySelectorAll('.fs-stage'));
+  var buttons = Array.prototype.slice.call(track.querySelectorAll('.fs-stage-trigger'));
+  var progressPath = document.getElementById('fsLineProgress');
+  var panel = document.getElementById('fsDetailPanel');
+  var total = stages.length;
+  var pathLength = 0;
+
+  var details = [
+    { text:"Persistent changes in mood, thoughts, behavior, or day-to-day functioning may be a reason to seek professional support. There is no single sign to wait for, and trusting that something feels different is often enough to take the next step." },
+    { text:"Sharing a specific concern with a qualified professional helps clarify which type of support may be most suitable. This conversation often becomes the starting point for any further assessment or treatment.",
+      link:{ href:"#professionals", label:"Find a professional" } },
+    { text:"Specialized clinics and hospitals offer differing levels of care depending on the severity and complexity of a condition. These settings can provide assessment, therapy, psychiatric care, or more intensive treatment when needed.",
+      link:{ href:"#treatments", label:"Explore treatment options" } },
+    { text:"Peer groups, family, and community organizations can provide additional support alongside professional care. These connections often reinforce progress made through formal treatment." },
+    { text:"Ongoing care should be adjusted to reflect a person's changing needs over time. Consistent engagement with the chosen form of support helps sustain progress over the long term." }
+  ];
+
+  function setupPath(){
+    pathLength = progressPath.getTotalLength();
+    progressPath.style.strokeDasharray = pathLength;
+    updateProgress(0);
+  }
+  function updateProgress(index){
+    var fraction = total>1 ? index/(total-1) : 0;
+    var offset = pathLength * (1-fraction);
+    progressPath.style.strokeDashoffset = offset;
+    track.style.setProperty('--fs-progress', (fraction*100)+'%');
+  }
+  function renderPanel(index){
+    var stage = stages[index];
+    var title = stage.querySelector('.fs-stage-title').textContent;
+    var num = stage.getAttribute('data-num');
+    var d = details[index];
+    var linkHtml = d.link ? '<a class="fs-stage-link" href="'+d.link.href+'">'+d.link.label+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' : '';
+    panel.innerHTML = '<div class="fs-detail-top"><span class="fs-detail-number">'+num+'</span><h3 class="fs-detail-title">'+title+'</h3></div><p class="fs-detail-text">'+d.text+'</p>'+linkHtml;
+  }
+  function activate(index){
+    stages.forEach(function(stage,i){
+      var btn = buttons[i];
+      var isActive = i===index;
+      stage.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-expanded', isActive ? 'true':'false');
+    });
+    updateProgress(index);
+    panel.classList.add('fs-fade');
+    window.setTimeout(function(){ renderPanel(index); panel.classList.remove('fs-fade'); }, 140);
+  }
+  buttons.forEach(function(btn,i){ btn.addEventListener('click', function(){ activate(i); }); });
+  if(window.ResizeObserver){ var ro = new ResizeObserver(function(){ setupPath(); }); ro.observe(track); }
+  else{ window.addEventListener('resize', setupPath); }
+  window.addEventListener('load', setupPath);
+  setupPath();
+  renderPanel(0);
+})();
+</script>
+
+<!-- ================= PROFESSIONALS ================= -->
+<section class="mhp-section" id="professionals" aria-labelledby="mhp-heading">
+  <div class="wrap">
+    <p class="eyebrow">Understanding your options</p>
+    <h2 class="heading-lg" id="mhp-heading" style="max-width:16ch;">Mental Health Professionals <em>in Thailand</em></h2>
+    <p class="intro-text" style="margin-bottom:0;">Mental health professionals in Thailand fall into several distinct roles, each with its own training and responsibilities. Understanding these roles can help clarify where to seek support for a specific concern.</p>
+
+    <div class="mhp-selector">
+      <div class="mhp-mobile-tabs" id="mhpMobileTabs" role="tablist" aria-label="Select a mental health professional"></div>
+      <ul class="mhp-list" id="mhpList" role="tablist" aria-label="Select a mental health professional"></ul>
+      <div class="mhp-panel"><div class="mhp-panel-inner" id="mhpPanel" role="tabpanel" aria-live="polite"></div></div>
+    </div>
+
+    <div class="mhp-compare">
+      <h2>Who Does What?</h2>
+      <div class="mhp-grid">
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Psychiatrist</p><p class="mhp-card-desc">Medical doctor, diagnosis, and medication management</p></div>
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Psychologist</p><p class="mhp-card-desc">Psychological assessment, therapy, and behavioral support</p></div>
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Counsellor</p><p class="mhp-card-desc">Guidance, emotional support, and coping strategies</p></div>
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Mental Health Nurse</p><p class="mhp-card-desc">Clinical care, monitoring, and care coordination</p></div>
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Therapist</p><p class="mhp-card-desc">Structured therapy, emotional support, and skill-building</p></div>
+        <div class="mhp-card"><p class="mhp-card-title"><span class="mhp-dot"></span>Other Professionals</p><p class="mhp-card-desc">Specialized support, rehabilitation, and community care</p></div>
+      </div>
+      <p class="mhp-disclaimer">Professional responsibilities and scope of practice can vary depending on qualifications, registration, and applicable regulations in Thailand. Not sure which professional fits a specific need? A qualified mental health professional can help assess a specific concern and guide toward appropriate support.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const ICONS = {
+    psychiatrist: '<svg viewBox="0 0 24 24"><path d="M9 3v5a3 3 0 0 0 6 0V3"/><path d="M6 8v3a6 6 0 0 0 12 0V8"/><circle cx="18" cy="16" r="2.4"/><path d="M12 17v2a3 3 0 0 0 3 3"/></svg>',
+    psychologist: '<svg viewBox="0 0 24 24"><path d="M9 4a4 4 0 0 1 4 4v2.5c1.2.3 2 1.4 2 2.7 0 1.5-1.2 2.8-2.7 2.8H12v2a3 3 0 0 1-3 3"/><path d="M9 4a4 4 0 0 0-4 4v3a3 3 0 0 0 3 3"/><path d="M9 10.5h.01"/></svg>',
+    counsellor: '<svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 3.2 6.4L4 20l1.2-3.6A7.96 7.96 0 0 1 4 12Z"/><path d="M8.5 11.5c.6.9 1.6 1.5 2.8 1.7M8.5 11.5c-.2-1.4.7-2.7 2-3"/></svg>',
+    nurse: '<svg viewBox="0 0 24 24"><path d="M12 21c-4.4-2.6-8-5.8-8-9.8A4.7 4.7 0 0 1 12 8.4 4.7 4.7 0 0 1 20 11.2c0 4-3.6 7.2-8 9.8Z"/><path d="M12 9.5v5M9.5 12h5"/></svg>',
+    therapist: '<svg viewBox="0 0 24 24"><path d="M12 3c1 2 1 4-.5 5.5S9 12 9 14a3 3 0 0 0 6 0c0-2-1-3-1.5-4"/><path d="M6 20c1.5-2 3.5-3 6-3s4.5 1 6 3"/></svg>',
+    other: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4l2.6 2.6"/></svg>'
+  };
+  const DATA = [
+    { id:'psychiatrist', num:'01', name:'Psychiatrist', role:'Medical mental-health care', tag:'Medical Doctor',
+      definition:'Psychiatrists complete medical training before specializing in mental health, allowing them to evaluate both psychological and physical factors together. This medical background becomes particularly relevant for complex or severe conditions requiring coordinated care.',
+      responsibilities:['Evaluate mental health conditions','Diagnose specific disorders','Prescribe and manage medication','Coordinate broader treatment plans'],
+      helps:['Conditions that may benefit from medical evaluation','Cases where medication may support treatment','Complex conditions requiring coordinated care'],
+      canPrescribe:true, link:'#treatments' },
+    { id:'psychologist', num:'02', name:'Psychologist', role:'Psychological assessment & therapy', tag:'Psychological Care',
+      definition:'Psychologists complete specialized training in psychological assessment and therapy rather than medical school. Their focus centers on thought patterns, behavior, and emotional functioning through structured, talk-based approaches.',
+      responsibilities:['Conduct psychological assessments','Provide structured therapy','Support behavioral change','Track progress over time'],
+      helps:['Anxiety, depression, and related conditions','Behavioral patterns needing structured intervention','Ongoing therapeutic support'],
+      canPrescribe:false, link:'#treatments' },
+    { id:'counsellor', num:'03', name:'Counselor', role:'Emotional & personal support', tag:'Talking Support',
+      definition:'Counselors offer guidance focused on specific life challenges, often working within a shorter timeframe than psychologists. Sessions typically center on practical coping strategies rather than in-depth clinical assessment.',
+      responsibilities:['Provide emotional support','Teach practical coping strategies','Guide individuals through specific life challenges'],
+      helps:['Grief, stress, or relationship difficulties','Situations needing short-term guidance','General life transitions'],
+      canPrescribe:false, link:'#treatments' },
+    { id:'nurse', num:'04', name:'Mental Health Nurse', role:'Clinical & ongoing support', tag:'Clinical Care',
+      definition:'Mental health nurses provide clinical care in hospital and psychiatric settings, supporting both medical treatment and patients’ daily needs. Their role often bridges psychiatric oversight and hands-on patient care.',
+      responsibilities:['Monitor patient well-being','Support medication administration','Coordinate daily care','Assist psychiatric teams'],
+      helps:['Inpatient or hospital-based care','Ongoing clinical monitoring','Coordination across a broader care team'],
+      canPrescribe:false, link:'#treatments' },
+    { id:'therapist', num:'05', name:'Therapist', role:'Therapeutic support', tag:'Therapeutic Approaches',
+      definition:'Therapists deliver structured, evidence-based interventions aimed at addressing emotional or behavioral difficulties. Specific techniques vary depending on training and the condition being addressed.',
+      responsibilities:['Deliver structured interventions','Support emotional regulation','Guide behavioral change over time'],
+      helps:['Trauma or specific behavioral concerns','Conditions suited to structured therapeutic techniques','Ongoing skill building'],
+      canPrescribe:false, link:'#treatments' },
+    { id:'other', num:'06', name:'Other Professionals', role:'Additional care & support', tag:'Specialized Support',
+      definition:'Additional professionals, including social workers and rehabilitation specialists, support specific aspects of mental health care beyond standard therapy or medical treatment. Their expertise often addresses social, community, or rehabilitation needs.',
+      responsibilities:['Provide specialized support','Coordinate rehabilitation services','Connect individuals with community resources'],
+      helps:['Rehabilitation needs','Social or community based support','Specialized conditions requiring additional expertise'],
+      canPrescribe:false, link:'#recovery' }
+  ];
+
+  const listEl = document.getElementById('mhpList');
+  const mobileTabsEl = document.getElementById('mhpMobileTabs');
+  const panelEl = document.getElementById('mhpPanel');
+  let activeId = 'psychiatrist';
+  const desktopTabs = {}; const mobileTabs = {};
+
+  DATA.forEach(item=>{
+    const li = document.createElement('li'); li.className = 'mhp-item';
+    li.innerHTML = `<button class="mhp-tab" id="mhp-tab-${item.id}" role="tab" aria-selected="${item.id===activeId}" aria-controls="mhpPanel" data-id="${item.id}" tabindex="${item.id===activeId?'0':'-1'}">
+      <span class="mhp-num">${item.num}</span><span class="mhp-icon">${ICONS[item.id]}</span>
+      <span class="mhp-text"><span class="mhp-name">${item.name}</span><span class="mhp-role">${item.role}</span></span></button>`;
+    listEl.appendChild(li); desktopTabs[item.id] = li.querySelector('.mhp-tab');
+
+    const mbtn = document.createElement('button'); mbtn.className='mhp-mtab'; mbtn.setAttribute('role','tab');
+    mbtn.setAttribute('aria-selected', item.id===activeId); mbtn.setAttribute('aria-controls','mhpPanel');
+    mbtn.dataset.id = item.id; mbtn.tabIndex = item.id===activeId ? 0 : -1;
+    mbtn.innerHTML = `${ICONS[item.id]}<span>${item.name}</span>`;
+    mobileTabsEl.appendChild(mbtn); mobileTabs[item.id] = mbtn;
+  });
+
+  function renderPanel(item){
+    const rx = item.canPrescribe
+      ? `<div class="mhp-rx"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg><span><strong>Can prescribe medication.</strong> As medical doctors, psychiatrists can prescribe and manage medication as part of treatment.</span></div>`
+      : `<div class="mhp-rx"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/></svg><span><strong>Does not typically prescribe medication.</strong> Where medication may help, this professional may refer to or work alongside a psychiatrist.</span></div>`;
+    panelEl.innerHTML = `
+      <span class="mhp-panel-tag">${item.tag}</span>
+      <h3>${item.name}</h3>
+      <p class="mhp-definition">${item.definition}</p>
+      <div class="mhp-block"><p class="mhp-block-label">Main Responsibilities</p><ul class="mhp-tags">${item.responsibilities.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+      <div class="mhp-block"><p class="mhp-block-label">What They May Help With</p><ul class="mhp-help-list">${item.helps.map(h=>`<li>${h}</li>`).join('')}</ul></div>
+      ${rx}
+      <a class="mhp-learn" href="${item.link}">Learn More <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>`;
+  }
+
+  function selectProfessional(id, opts){
+    opts = opts || {}; activeId = id;
+    const item = DATA.find(d=>d.id===id);
+    Object.keys(desktopTabs).forEach(key=>{
+      const isActive = key===id;
+      desktopTabs[key].setAttribute('aria-selected', isActive); desktopTabs[key].tabIndex = isActive?0:-1;
+    });
+    Object.keys(mobileTabs).forEach(key=>{
+      const isActive = key===id;
+      mobileTabs[key].setAttribute('aria-selected', isActive); mobileTabs[key].tabIndex = isActive?0:-1;
+    });
+    panelEl.classList.add('mhp-fade');
+    window.setTimeout(()=>{ renderPanel(item); panelEl.classList.remove('mhp-fade'); }, 180);
+    if(opts.scrollMobileIntoView && mobileTabs[id]) mobileTabs[id].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    if(opts.focus) (window.innerWidth<=900 ? mobileTabs[id] : desktopTabs[id]).focus();
+  }
+
+  function handleKeyNav(e, ids, currentId){
+    const idx = ids.indexOf(currentId); let next=null;
+    if(e.key==='ArrowDown'||e.key==='ArrowRight') next = ids[(idx+1)%ids.length];
+    else if(e.key==='ArrowUp'||e.key==='ArrowLeft') next = ids[(idx-1+ids.length)%ids.length];
+    else if(e.key==='Home') next = ids[0];
+    else if(e.key==='End') next = ids[ids.length-1];
+    if(next){ e.preventDefault(); selectProfessional(next, {focus:true, scrollMobileIntoView:true}); }
+  }
+
+  const ids = DATA.map(d=>d.id);
+  listEl.addEventListener('click', e=>{ const btn=e.target.closest('.mhp-tab'); if(btn) selectProfessional(btn.dataset.id); });
+  listEl.addEventListener('keydown', e=>{ const btn=e.target.closest('.mhp-tab'); if(btn) handleKeyNav(e, ids, btn.dataset.id); });
+  mobileTabsEl.addEventListener('click', e=>{ const btn=e.target.closest('.mhp-mtab'); if(btn) selectProfessional(btn.dataset.id); });
+  mobileTabsEl.addEventListener('keydown', e=>{ const btn=e.target.closest('.mhp-mtab'); if(btn) handleKeyNav(e, ids, btn.dataset.id); });
+
+  selectProfessional('psychiatrist');
+})();
+</script>
+
+<!-- ================= FAQ ================= -->
+<section class="faq-section" id="services" aria-labelledby="faq-heading">
+  <div class="wrap">
+    <p class="eyebrow">Frequently asked questions</p>
+    <h2 id="faq-heading" class="heading-lg" style="max-width:700px;">Mental Health Services in Thailand</h2>
+    <p class="intro-text" style="margin-bottom:0;">Straight answers to common questions about mental health services, access, professionals, and cost in Thailand.</p>
+
+    <div class="faq-tabbar" id="faqTabbar" role="tablist" aria-label="FAQ categories">
+      <button class="faq-tabbtn" role="tab" aria-selected="true" data-panel="faq-services" id="faq-tab-services">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="8" width="15" height="12" rx="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20v-4.5h6V20M12 4v4M10 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Mental Health Services
+      </button>
+      <button class="faq-tabbtn" role="tab" aria-selected="false" data-panel="faq-access" id="faq-tab-access">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-2 5-5 2 2-5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Care &amp; Access
+      </button>
+      <button class="faq-tabbtn" role="tab" aria-selected="false" data-panel="faq-pros" id="faq-tab-pros">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3v7a4 4 0 0 0 8 0V3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 8v3a4 4 0 0 1-4 4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="6" r="1.6"/><circle cx="9" cy="19" r="2"/></svg>
+        Psychiatrists &amp; Psychologists
+      </button>
+      <button class="faq-tabbtn" role="tab" aria-selected="false" data-panel="faq-cost" id="faq-tab-cost">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.3-5 3.7 0 1.1 1.1 1.8 2.5 1.8s2.5-.9 2.5-2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Cost &amp; Practical
+      </button>
+    </div>
+
+    <!-- Panel: Services -->
+    <div class="faq-panel is-active" id="faq-services" role="tabpanel" aria-labelledby="faq-tab-services">
+      <div class="faq-list">
+        <div class="faq-item is-open" data-level="2">
+          <button class="faq-q"><span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="8" width="15" height="12" rx="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 20v-4.5h6V20M12 4v4M10 6h4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="faq-q-text">What mental health services are available in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>The mental health services available in Thailand include psychiatric hospitals for intensive, medically supervised care; private clinics offering outpatient therapy, counseling, and psychiatric care in a flexible setting; rehabilitation centers providing structured, extended treatment; counseling centers offering talk-based support for specific life challenges; and telehealth services providing remote access to therapy and psychiatric care.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Are mental health services available for foreigners in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, mental health services are available for foreigners in Thailand. Many private clinics and hospitals offer services in English and other languages, particularly in larger cities, with international-standard facilities catering specifically to expatriates and visitors. Cultural and language differences can still affect the experience, so researching providers in advance helps ensure a good fit.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Where can I get mental health help in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>You can get mental health help in Thailand through hospitals, private clinics, rehabilitation centers, and telehealth services. Public hospitals often provide lower cost care with longer wait times, while private clinics and hospitals typically offer faster access and additional language support. Telehealth offers a convenient option for flexible, remote access to care.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="4">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Are mental health services in Thailand confidential?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, mental health services in Thailand are generally confidential. Professional standards require providers to protect patient information and maintain privacy throughout treatment, though policies may vary slightly between public and private facilities. Exceptions typically apply only in situations involving safety concerns, consistent with standard clinical practice.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Access -->
+    <div class="faq-panel" id="faq-access" role="tabpanel" aria-labelledby="faq-tab-access">
+      <div class="faq-list">
+        <div class="faq-item is-open" data-level="2">
+          <button class="faq-q"><span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"/><path d="m14.5 9.5-2 5-5 2 2-5z" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="faq-q-text">How do I know if I need mental health help?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>You can know you need mental health help by watching for signs such as persistent low mood, excessive worry, or difficulty managing daily responsibilities. Changes in sleep, appetite, or energy that last for an extended period, or withdrawing from relationships and previously enjoyable activities, are additional warning signs worth reaching out about.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">When should I see a mental health professional?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>You should see a mental health professional when symptoms begin to interfere with daily functioning, relationships, or overall well-being, or persist for several weeks or longer. Sudden, severe symptoms, including thoughts of self-harm, require immediate professional attention rather than a wait-and-see approach.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Can I get mental health care without a referral in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, you can get mental health care without a referral in Thailand. Private clinics and hospitals typically allow direct appointments without requiring a referral from another provider, though public hospitals may have slightly different processes. Confirming specific requirements with a chosen provider helps avoid unnecessary delays.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="4">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Can I access mental health care in Thailand without health insurance?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, you can access mental health care in Thailand without health insurance. Out-of-pocket payment remains a common option at both private and public facilities, with public facilities generally offering lower-cost options. Confirming pricing directly with a provider helps avoid unexpected costs before beginning treatment.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Psychiatrists & Psychologists -->
+    <div class="faq-panel" id="faq-pros" role="tabpanel" aria-labelledby="faq-tab-pros">
+      <div class="faq-list">
+        <div class="faq-item is-open" data-level="2">
+          <button class="faq-q"><span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3v7a4 4 0 0 0 8 0V3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 8v3a4 4 0 0 1-4 4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="6" r="1.6"/><circle cx="9" cy="19" r="2"/></svg></span><span class="faq-q-text">What is the difference between a psychiatrist and psychologist in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>A psychiatrist is a medical doctor who can diagnose mental health conditions and prescribe medication, while a psychologist focuses on therapy and psychological assessment. Both professionals often work together, combining medical and therapeutic approaches, and choosing between the two often depends on whether medication may be needed.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">When should I see a psychiatrist or psychologist in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>You should see a psychiatrist or psychologist when symptoms begin to affect daily functioning, relationships, or overall well-being. A psychiatrist suits situations where medication may be needed, while a psychologist suits situations involving therapy or assessment without medication — some cases call for both working together.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">How can a psychiatrist help with mental health in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>A psychiatrist helps by completing a thorough evaluation of symptoms, history, and relevant physical health factors; providing an accurate diagnosis; prescribing medication when clinically appropriate; monitoring progress through regular follow-up appointments; and coordinating with other mental health professionals for a complete treatment plan.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="4">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">How can a psychologist help with mental health in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>A psychologist helps by completing a psychological assessment to clarify the condition; providing talk-based treatment to address unhelpful thought patterns; building practical coping skills; tracking progress through regular sessions; and collaborating with psychiatrists or other providers for a more comprehensive treatment plan.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Cost -->
+    <div class="faq-panel" id="faq-cost" role="tabpanel" aria-labelledby="faq-tab-cost">
+      <div class="faq-list">
+        <div class="faq-item is-open" data-level="2">
+          <button class="faq-q"><span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8c0 2.4-5 1.3-5 3.7 0 1.1 1.1 1.8 2.5 1.8s2.5-.9 2.5-2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="faq-q-text">How much does mental health care cost in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Mental health care in Thailand costs the least at public hospitals — often $10–$20 per consultation — more at private clinics and hospitals, often $30–$100 per session, and the most for extended rehabilitation programs, often $2,000–$20,000 for a full program. Insurance coverage, where available, can significantly reduce out-of-pocket expenses.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Is mental health care expensive in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>No, mental health care in Thailand is not always expensive, though costs vary considerably by provider and treatment type. Public facilities generally offer more affordable options, while private care and specialized treatment carry a higher cost — often still lower than comparable private care in many Western countries.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="3">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Does health insurance cover mental health treatment in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, health insurance can cover mental health treatment in Thailand, though coverage varies significantly between policies. Some plans include full or partial coverage for psychiatric care, therapy, and hospital treatment, while others exclude certain services — confirming details directly with an insurance provider avoids unexpected costs.</p></div></div>
+        </div>
+        <div class="faq-item" data-level="4">
+          <button class="faq-q"><span class="faq-q-dot" aria-hidden="true"></span><span class="faq-q-text">Can tourists get mental health care in Thailand?</span><span class="faq-chevron" aria-hidden="true"></span></button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes, tourists can get mental health care in Thailand. Many private clinics and hospitals accept international patients, including short-term visitors, though payment is typically required out of pocket unless travel insurance specifically covers mental health treatment. English-speaking providers are commonly available in tourist and expatriate areas.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cta">
+      <div>
+        <h3>Take the First Step</h3>
+        <p>Navigating mental health concerns does not need to happen alone. Explore treatment options and professional support available across Thailand.</p>
+      </div>
+      <div class="faq-cta-actions">
+        <a class="faq-btn-onlight" href="#find-support">Explore Mental Health Support <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Information on this site is provided for general educational purposes only and is not a substitute for professional medical or psychological advice, diagnosis, or treatment. Always seek the guidance of a qualified health provider with any questions regarding a mental health condition. If you or someone else is in immediate danger, contact local emergency services.</p>
+</footer>
+
+<script>
+(function(){
+  // FAQ tabs
+  var tabbar = document.getElementById('faqTabbar');
+  var tabs = Array.prototype.slice.call(tabbar.querySelectorAll('.faq-tabbtn'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.faq-panel'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected', t===tab ? 'true':'false'); });
+      panels.forEach(function(p){ p.classList.toggle('is-active', p.id === tab.dataset.panel); });
+    });
+  });
+
+  // FAQ accordions (independent open/close per item)
+  var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  items.forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      item.classList.toggle('is-open');
+    });
+  });
+
+  // Reveal-on-scroll for hero/intro elements
+  var reveals = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold:.15, rootMargin:'0px 0px -40px 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+})();
+</script>
+
+</body>
+</html>
