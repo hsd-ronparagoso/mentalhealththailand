@@ -317,63 +317,84 @@
   .intro-tags li svg{ width:14px; height:14px; stroke:var(--sage-deep); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 
   /* ================= CONDITIONS ================= */
-  .cond-section{ padding:88px 0; }
+  .cond-section{ padding:88px 0 96px; background:#fff; overflow:hidden; }
+  .cond-section > .wrap > .eyebrow,
+  .cond-section > .wrap > .heading-lg,
+  .cond-section > .wrap > .intro-text{ display:block; text-align:center; margin-left:auto; margin-right:auto; }
+  .cond-section > .wrap > .eyebrow{ width:max-content; }
+  .cond-section > .wrap > .heading-lg{ max-width:900px !important; }
+  .cond-section > .wrap > .intro-text{ max-width:760px; }
   .cond-grid{
-    display:grid;
-    grid-template-columns:340px 1fr;
-    gap:28px;
-    align-items:start;
+    display:block;
+    margin-top:44px;
   }
   .cond-tablist{
     display:flex;
-    flex-direction:column;
-    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
     list-style:none;
     margin:0;
-    padding:10px;
-    background:var(--surface);
-    border:1px solid var(--line-soft);
-    border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-sm);
+    padding:0;
   }
   .cond-tab{
     display:flex;
     align-items:center;
-    gap:14px;
-    width:100%;
-    text-align:left;
-    background:transparent;
-    border:1px solid transparent;
-    border-radius:var(--radius-md);
-    padding:14px 16px;
+    gap:8px;
+    text-align:center;
+    background:#fff;
+    border:1px solid var(--line-soft);
+    border-radius:12px;
+    padding:12px 18px;
     cursor:pointer;
     font-family:inherit;
     font-size:15px;
     font-weight:600;
     color:var(--ink-soft);
-    transition:background .28s var(--ease), color .28s var(--ease);
+    box-shadow:0 4px 9px rgba(34,66,88,.12);
+    transition:background .28s var(--ease), color .28s var(--ease), transform .28s var(--ease), box-shadow .28s var(--ease);
   }
-  .cond-tab .cond-num{ font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--clay); min-width:26px; }
+  .cond-tab .cond-num{ display:none; font-family:var(--font-display); font-weight:700; font-size:14px; color:var(--clay); }
   .cond-tab .cond-label{ flex:1; }
-  .cond-tab .cond-arrow{ opacity:0; transform:translateX(-4px); transition:opacity .25s ease, transform .25s ease; color:var(--sage-deep); }
-  .cond-tab:hover{ background:var(--sage-pale); color:var(--ink); }
+  .cond-tab .cond-arrow{ display:none; }
+  .cond-tab:hover{ background:var(--sage-pale); color:var(--ink); transform:translateY(-2px); }
   .cond-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
-  .cond-tab[aria-selected="true"]{ background:var(--sage-deep); color:#F5F1ED; box-shadow:var(--shadow-sm); }
-  .cond-tab[aria-selected="true"] .cond-num{ color:#D9C48A; }
-  .cond-tab[aria-selected="true"] .cond-arrow{ opacity:1; transform:translateX(0); }
+  .cond-tab[aria-selected="true"]{ background:var(--sage-deep); color:#F5F1ED; border-color:var(--sage-deep); box-shadow:0 8px 16px rgba(34,66,88,.2); }
+
+  .cond-track-shell{ width:100vw; margin:52px 0 0 calc(50% - 50vw); overflow:hidden; padding:0 24px 18px; }
+  .cond-track-shell{ position:relative; }
+  .cond-track{ display:flex; align-items:stretch; gap:60px; width:max-content; transition:transform .55s var(--ease); }
+  .cond-side-card,
+  .cond-panel-outer{ flex:0 0 400px; }
+  .cond-side-card{ display:flex; flex-direction:column; justify-content:flex-end; min-height:404px; padding:20px; border:1px solid var(--line-soft); border-radius:12px; background:var(--surface); box-shadow:var(--shadow-md); overflow:hidden; cursor:pointer; text-align:left; position:relative; filter:blur(2.5px); opacity:.58; transition:filter .35s var(--ease), opacity .35s var(--ease), transform .35s var(--ease); }
+  .cond-side-card:hover,.cond-side-card:focus-visible{ filter:none; opacity:1; transform:translateY(-3px); }
+  .cond-side-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 36%,rgba(20,41,52,.78)); pointer-events:none; }
+  .cond-side-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease); }
+  .cond-side-card:hover img{ transform:scale(1.04); }
+  .cond-side-card h3{ position:relative; z-index:1; margin:0; color:#fff; font-family:var(--font-display); font-size:24px; line-height:1.2; }
+  .cond-side-card .cond-side-number{ position:relative; z-index:1; color:#D9C48A; font-size:13px; font-weight:700; margin-bottom:7px; }
+  .cond-controls{ position:absolute; z-index:3; inset:0; pointer-events:none; }
+  .cond-control{ position:absolute; top:50%; width:48px; height:48px; display:grid; place-items:center; border:1px solid rgba(34,66,88,.15); border-radius:50%; background:#fff; color:var(--ink); box-shadow:0 8px 20px rgba(34,66,88,.18); cursor:pointer; pointer-events:auto; transform:translateY(-50%); transition:background .25s ease, color .25s ease, transform .25s ease; }
+  .cond-control:hover{ background:var(--sage-deep); color:#fff; transform:translateY(-50%) scale(1.05); }
+  .cond-control:focus-visible{ outline:2px solid var(--clay); outline-offset:3px; }
+  .cond-control svg{ width:20px; height:20px; }
+  .cond-control--prev{ left:max(14px, calc((100vw - 1180px) / 2 - 20px)); }
+  .cond-control--next{ right:max(14px, calc((100vw - 1180px) / 2 - 20px)); }
 
   .cond-panel-outer{
+    flex-basis:825px;
     background:var(--surface);
     border:1px solid var(--line-soft);
     border-radius:var(--radius-lg);
     box-shadow:var(--shadow-lg);
-    padding:44px 44px 40px;
-    min-height:440px;
+    padding:20px;
+    min-height:424px;
     position:relative;
     overflow:hidden;
   }
   .cond-panel{ opacity:1; transform:translateY(0); transition:opacity .32s ease, transform .32s ease; }
   .cond-panel.cond-fade{ opacity:0; transform:translateY(8px); }
+  .cond-feature-image{ float:left; width:383px; height:382px; margin-right:20px; border-radius:7px; background:center/cover no-repeat; }
   .cond-panel-tag{
     display:inline-flex; align-items:center; gap:8px;
     font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700;
@@ -419,7 +440,14 @@
     }
     .cond-mobile-tab .cond-num{ font-family:var(--font-display); color:var(--clay); font-size:13px; }
     .cond-mobile-tab[aria-selected="true"]{ background:var(--sage-deep); color:#F5F1ED; border-color:var(--sage-deep); }
-    .cond-panel-outer{ padding:30px 22px 26px; min-height:0; }
+    .cond-track-shell{ margin-top:28px; padding:0 16px 10px; }
+    .cond-track{ gap:16px; width:100%; transform:none !important; }
+    .cond-side-card{ display:none; }
+    .cond-controls{ position:static; display:flex; justify-content:center; gap:14px; margin-top:14px; }
+    .cond-control{ position:static; transform:none; width:42px; height:42px; }
+    .cond-control:hover{ transform:scale(1.05); }
+    .cond-panel-outer{ flex-basis:100%; padding:18px; min-height:0; }
+    .cond-feature-image{ float:none; width:100%; height:230px; margin:0 0 24px; }
     .cond-panel-columns{ grid-template-columns:1fr; gap:24px; }
     .cond-panel-footer{ flex-direction:column; align-items:flex-start; }
     .cond-learn-more{ width:100%; justify-content:center; }
@@ -1066,8 +1094,14 @@
     <div class="cond-grid">
       <div class="cond-mobile-tabs" id="condMobileTabs" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></div>
       <ul class="cond-tablist" id="condTabList" role="tablist" aria-label="Mental health conditions" aria-orientation="vertical"></ul>
-      <div class="cond-panel-outer">
-        <div class="cond-panel" id="condPanel" role="tabpanel" tabindex="0"></div>
+      <div class="cond-track-shell">
+        <div class="cond-track" id="condTrack">
+          <div class="cond-panel-outer"><div class="cond-panel" id="condPanel" role="tabpanel" tabindex="0"></div></div>
+        </div>
+        <div class="cond-controls" aria-label="Browse conditions">
+          <button class="cond-control cond-control--prev" id="condPrev" type="button" aria-label="Previous condition"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="cond-control cond-control--next" id="condNext" type="button" aria-label="Next condition"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
       </div>
     </div>
   </div>
@@ -1113,6 +1147,20 @@
   const tabList = document.getElementById('condTabList');
   const mobileTabs = document.getElementById('condMobileTabs');
   const panel = document.getElementById('condPanel');
+  const track = document.getElementById('condTrack');
+  const previousButton = document.getElementById('condPrev');
+  const nextButton = document.getElementById('condNext');
+  let activeIndex = 0;
+  const conditionImages = {
+    anxiety:'https://www.thecabinchiangmai.com/wp-content/uploads/2026/06/mental-health-treatment.webp',
+    depression:'https://www.thecabinchiangmai.com/wp-content/uploads/2025/07/Mental-Health-Retreat-in-Thailand-Header-4-768x329.webp',
+    'trauma-ptsd':'https://www.thecabinchiangmai.com/wp-content/uploads/2024/10/trauma-treatment-4-768x512.png',
+    burnout:'https://www.thecabinchiangmai.com/wp-content/uploads/2023/07/o-The-Cabin-Rehab-Group-People-7.webp',
+    'mood-disorders':'https://www.thecabinchiangmai.com/wp-content/uploads/2024/06/The-Cabin-Chiang-Mais-facilities.webp',
+    ocd:'https://www.thecabinchiangmai.com/wp-content/uploads/2023/04/Contact-Us-Content-Image.webp',
+    'eating-disorders':'https://www.thecabinchiangmai.com/wp-content/uploads/2012/09/The-Cabin-Rehab-Counseling-Group-1-600x450.webp',
+    'substance-use':'https://www.thecabinchiangmai.com/wp-content/uploads/2025/07/Cocaine-Addiction-Treatment.avif'
+  };
 
   function buildTabs(){
     conditions.forEach((c,i)=>{
@@ -1150,6 +1198,7 @@
 
   function renderPanel(c){
     panel.innerHTML = `
+      <div class="cond-feature-image" style="background-image:url('${conditionImages[c.id]}')" role="img" aria-label="${c.name.replace(/^\d+\.\s/,'')} treatment setting"></div>
       <span class="cond-panel-tag">Condition overview</span>
       <h3>${c.name.replace(/^\d+\.\s/,'')}</h3>
       <p class="cond-definition">${c.definition}</p>
@@ -1163,8 +1212,38 @@
       </div>`;
   }
 
+  function renderShowcase(index){
+    const c = conditions[index];
+    const activeOuter = panel.parentElement;
+    track.innerHTML = '';
+    const previousIndex = (index - 1 + conditions.length) % conditions.length;
+    const nextIndex = (index + 1) % conditions.length;
+    track.appendChild(makeSideCard(conditions[previousIndex], previousIndex));
+    track.appendChild(activeOuter);
+    track.appendChild(makeSideCard(conditions[nextIndex], nextIndex));
+    renderPanel(c);
+    requestAnimationFrame(()=>{
+      if(window.matchMedia('(min-width: 901px)').matches){
+        const center = window.innerWidth / 2;
+        const activeCenter = activeOuter.offsetLeft + activeOuter.offsetWidth / 2;
+        track.style.transform = `translateX(${center - activeCenter}px)`;
+      }
+    });
+  }
+
+  function makeSideCard(c, index){
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'cond-side-card';
+    card.setAttribute('aria-label', `Show ${c.name.replace(/^\d+\.\s/,'')}`);
+    card.innerHTML = `<img src="${conditionImages[c.id]}" alt=""><span class="cond-side-number">${String(index + 1).padStart(2,'0')}</span><h3>${c.name.replace(/^\d+\.\s/,'')}</h3>`;
+    card.addEventListener('click', ()=>selectCondition(index));
+    return card;
+  }
+
   function selectCondition(i){
     const c = conditions[i];
+    activeIndex = i;
     [tabList, mobileTabs].forEach(container=>{
       const selectorClass = container===tabList ? '.cond-tab' : '.cond-mobile-tab';
       Array.from(container.querySelectorAll(selectorClass)).forEach((btn,idx)=>{
@@ -1176,11 +1255,13 @@
     const activeMobile = document.getElementById(`cond-mtab-${c.id}`);
     if(activeMobile) activeMobile.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
     panel.classList.add('cond-fade');
-    window.setTimeout(()=>{ renderPanel(c); panel.classList.remove('cond-fade'); }, 160);
+    window.setTimeout(()=>{ renderShowcase(i); panel.classList.remove('cond-fade'); }, 160);
   }
 
+  previousButton.addEventListener('click', ()=>selectCondition((activeIndex - 1 + conditions.length) % conditions.length));
+  nextButton.addEventListener('click', ()=>selectCondition((activeIndex + 1) % conditions.length));
   buildTabs();
-  renderPanel(conditions[0]);
+  renderShowcase(0);
 })();
 </script>
 
