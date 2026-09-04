@@ -60,7 +60,7 @@
   .eyebrow{
     display:inline-flex;
     align-items:center;
-    gap:10px;
+    gap:4px;
     font-size:12.5px;
     letter-spacing:.14em;
     text-transform:uppercase;
@@ -330,13 +330,16 @@
   }
   .cond-tablist{
     display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
+    justify-content:space-between;
+    flex-wrap:nowrap;
     gap:10px;
     list-style:none;
     margin:0;
     padding:0;
+    overflow-x:auto;
+    scrollbar-width:none;
   }
+  .cond-tablist::-webkit-scrollbar{ display:none; }
   .cond-tab{
     display:flex;
     align-items:center;
@@ -345,12 +348,14 @@
     background:#fff;
     border:1px solid var(--line-soft);
     border-radius:12px;
-    padding:12px 18px;
+    padding:12px 11.5px;
     cursor:pointer;
     font-family:inherit;
-    font-size:15px;
+    font-size:12.5px;
     font-weight:600;
     color:var(--ink-soft);
+    white-space:nowrap;
+    flex:0 1 auto;
     box-shadow:0 4px 9px rgba(34,66,88,.12);
     transition:background .28s var(--ease), color .28s var(--ease), transform .28s var(--ease), box-shadow .28s var(--ease);
   }
