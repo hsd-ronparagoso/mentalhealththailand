@@ -155,9 +155,7 @@
   /* ================= SITE NAV ================= */
   .site-nav{
     position:sticky; top:0; z-index:500;
-    background:rgba(245,241,237,.92);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+    background:#224258;
     border-bottom:1px solid transparent;
     transition:border-color .3s ease, box-shadow .3s ease;
   }
@@ -184,12 +182,12 @@
   .site-nav-links::-webkit-scrollbar{ display:none; }
   .site-nav-link{
     display:inline-block; white-space:nowrap; padding:9px 13px; border-radius:999px;
-    font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none;
+    font-size:13px; font-weight:600; color:rgba(245,241,237,.8); text-decoration:none;
     transition:background .2s ease, color .2s ease;
   }
-  .site-nav-link:hover{ background:var(--sage-pale); color:var(--ink); }
-  .site-nav-link.is-active{ background:var(--sage-pale); color:var(--sage-deep); }
-  .site-nav-link:focus-visible{ outline:2px solid var(--sage-deep); outline-offset:2px; }
+  .site-nav-link:hover{ background:rgba(255,255,255,.1); color:#F5F1ED; }
+  .site-nav-link.is-active{ background:rgba(255,255,255,.15); color:#F5F1ED; }
+  .site-nav-link:focus-visible{ outline:2px solid var(--clay); outline-offset:2px; }
   .site-nav-cta{
     display:inline-flex; align-items:center; gap:7px; flex-shrink:0;
     background:var(--sage-deep); color:#F5F1ED; text-decoration:none; font-weight:600; font-size:13px;
@@ -200,7 +198,7 @@
   .site-nav-cta:focus-visible{ outline:2.5px solid var(--clay); outline-offset:3px; }
   .site-nav-toggle{
     display:none; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
-    background:none; border:1px solid var(--line-soft); cursor:pointer; flex-shrink:0; color:var(--ink);
+    background:none; border:1px solid rgba(255,255,255,.2); cursor:pointer; flex-shrink:0; color:#F5F1ED;
   }
   .site-nav-toggle svg{ width:18px; height:18px; }
 
@@ -209,8 +207,8 @@
     .site-nav-toggle{ display:flex; }
     .site-nav.is-open .site-nav-links{
       display:flex; flex-direction:column; align-items:stretch; gap:2px; overflow-x:visible;
-      position:absolute; top:64px; left:0; right:0; background:var(--surface);
-      border-bottom:1px solid var(--line-soft); box-shadow:0 16px 30px -20px rgba(34,66,88,.4);
+      position:absolute; top:64px; left:0; right:0; background:#224258;
+      border-bottom:1px solid rgba(255,255,255,.1); box-shadow:0 16px 30px -20px rgba(0,0,0,.4);
       padding:10px 16px 16px;
     }
     .site-nav.is-open .site-nav-link{ padding:12px 14px; border-radius:10px; }
@@ -976,8 +974,8 @@
   }
   .faq-btn-onlight:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.18); }
 
-  footer.site-footer{ padding:48px 0 40px; background:var(--bg); border-top:1px solid var(--line-soft); }
-  footer.site-footer p{ font-size:12.5px; color:var(--ink-faint); text-align:center; max-width:760px; margin:0 auto; line-height:1.6; }
+  footer.site-footer{ padding:48px 0 40px; background:#224258; border-top:1px solid var(--line-soft); }
+  footer.site-footer p{ font-size:12.5px; color:rgba(245,241,237,.7); text-align:center; max-width:760px; margin:0 auto; line-height:1.6; }
   .footer-logo{ display:flex; justify-content:center; margin-bottom:22px; }
   .footer-logo img{ height:44px; width:auto; display:block; }
 </style>
@@ -988,10 +986,7 @@
 <header class="site-nav" id="siteNav">
   <div class="site-nav-inner">
     <a class="site-nav-logo" href="#">
-      <span class="site-nav-logo-mark">
-        <img src="logo-mark.png" alt="The Cabin logo mark">
-      </span>
-      Mental Health Thailand
+      <img src="https://www.thecabinchiangmai.com/wp-content/uploads/2025/03/Rehab-Thailand-Logo.webp" alt="The Cabin Thailand logo" style="height: 50px; width: auto; display:block;">
     </a>
 
     <button class="site-nav-toggle" id="siteNavToggle" type="button" aria-expanded="false" aria-controls="siteNavLinks" aria-label="Toggle navigation menu">
@@ -2305,8 +2300,8 @@
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="footer-logo"><img src="logo-full-navy.png" alt="The Cabin"></div>
+<footer class="site-footer" style="background:#224258;">
+  <div class="footer-logo"><img src="https://www.thecabinchiangmai.com/wp-content/uploads/2025/03/Rehab-Thailand-Logo.webp" alt="The Cabin Thailand" style="height: 80px; width: auto; display:block;"></div>
   <p>Information on this site is provided for general educational purposes only and is not a substitute for professional medical or psychological advice, diagnosis, or treatment. Always seek the guidance of a qualified health provider with any questions regarding a mental health condition. If you or someone else is in immediate danger, contact local emergency services.</p>
 </footer>
 
