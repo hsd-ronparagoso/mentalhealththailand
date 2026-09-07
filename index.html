@@ -256,8 +256,37 @@
     line-height:1.7;
     color:rgba(245,241,237,.92);
     max-width:600px;
-    margin:0 auto 34px;
+    margin:0 auto 24px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    transition:max-height .4s var(--ease);
   }
+  .hero-copy.is-expanded{
+    -webkit-line-clamp:unset;
+    max-height:none;
+  }
+  .hero-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:none;
+    border:none;
+    color:rgba(245,241,237,.9);
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    padding:8px 0;
+    margin-bottom:10px;
+    border-radius:999px;
+    transition:color .2s ease, gap .2s ease;
+  }
+  .hero-toggle:hover{ color:#fff; gap:12px; }
+  .hero-toggle:focus-visible{ outline:2px solid var(--clay); outline-offset:3px; }
+  .hero-chevron{ transition:transform .3s var(--ease); flex-shrink:0; }
+  .hero-toggle[aria-expanded="true"] .hero-chevron{ transform:rotate(180deg); }
   .hero-cta-row{
     display:flex;
     flex-wrap:wrap;
@@ -328,9 +357,35 @@
     display:block;
     margin-top:44px;
   }
+  .cond-tab-wrapper{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .cond-tab-scroll{
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    border:1px solid var(--line-soft);
+    border-radius:50%;
+    background:var(--surface);
+    color:var(--ink);
+    cursor:pointer;
+    flex-shrink:0;
+    box-shadow:var(--shadow-sm);
+    transition:background .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease, transform .2s ease;
+    opacity:0;
+    pointer-events:none;
+  }
+  .cond-tab-scroll:not([hidden]){ opacity:1; pointer-events:auto; }
+  .cond-tab-scroll:hover{ background:var(--sage-deep); color:#fff; border-color:var(--sage-deep); transform:scale(1.05); }
+  .cond-tab-scroll:focus-visible{ outline:2px solid var(--clay); outline-offset:2px; }
+  .cond-tab-scroll svg{ width:18px; height:18px; }
   .cond-tablist{
     display:flex;
-    justify-content:space-between;
+    flex:1;
     flex-wrap:nowrap;
     gap:10px;
     list-style:none;
@@ -338,6 +393,7 @@
     padding:0;
     overflow-x:auto;
     scrollbar-width:none;
+    scroll-behavior:smooth;
   }
   .cond-tablist::-webkit-scrollbar{ display:none; }
   .cond-tab{
@@ -1007,12 +1063,16 @@
     <div class="hero-inner reveal">
       <p class="eyebrow on-dark">Mental Health in Thailand</p>
       <h1 id="hero-heading">Introduction to <em>Mental Health</em> in Thailand</h1>
-      <p class="hero-copy">
+      <p class="hero-copy" id="heroCopy">
         Mental-health support and treatment are available across Thailand. This site brings together
         trusted, easy-to-understand information on common conditions, treatment approaches, and the
         professionals and services that can help — so taking the next step feels possible rather than
         overwhelming.
       </p>
+      <button class="hero-toggle" id="heroToggle" type="button" aria-expanded="false" aria-controls="heroCopy">
+        <span data-label>Show more</span>
+        <svg class="hero-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
       <div class="hero-cta-row">
         <a class="btn-primary" href="https://www.thecabinchiangmai.com/pricing/" target="_blank" rel="noopener noreferrer" aria-label="Explore mental health support in Thailand">
           Explore Mental Health Support
@@ -1026,6 +1086,21 @@
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var copy = document.getElementById('heroCopy');
+  var toggle = document.getElementById('heroToggle');
+  var label = toggle.querySelector('[data-label]');
+  if(!copy || !toggle) return;
+  toggle.addEventListener('click', function(){
+    var expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    copy.classList.toggle('is-expanded', !expanded);
+    label.textContent = expanded ? 'Show more' : 'Show less';
+  });
+})();
+</script>
 
 <!-- ================= HERO CARDS ================= -->
 <section class="hero-cards-section">
@@ -1099,7 +1174,11 @@
 
     <div class="cond-grid">
       <div class="cond-mobile-tabs" id="condMobileTabs" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></div>
-      <ul class="cond-tablist" id="condTabList" role="tablist" aria-label="Mental health conditions" aria-orientation="vertical"></ul>
+      <div class="cond-tab-wrapper">
+        <button class="cond-tab-scroll cond-tab-scroll--prev" id="condTabPrev" type="button" aria-label="Scroll conditions left" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 12-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <ul class="cond-tablist" id="condTabList" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></ul>
+        <button class="cond-tab-scroll cond-tab-scroll--next" id="condTabNext" type="button" aria-label="Scroll conditions right" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 12 7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       <div class="cond-track-shell">
         <div class="cond-track" id="condTrack">
           <div class="cond-panel-outer"><div class="cond-panel" id="condPanel" role="tabpanel" tabindex="0"></div></div>
