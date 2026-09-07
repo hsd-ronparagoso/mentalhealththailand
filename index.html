@@ -1235,6 +1235,9 @@
   const track = document.getElementById('condTrack');
   const previousButton = document.getElementById('condPrev');
   const nextButton = document.getElementById('condNext');
+  const tabPrev = document.getElementById('condTabPrev');
+  const tabNext = document.getElementById('condTabNext');
+  const tabWrapper = document.querySelector('.cond-tab-wrapper');
   let activeIndex = 0;
   const conditionImages = {
     anxiety:'https://www.thecabinchiangmai.com/wp-content/uploads/2026/06/mental-health-treatment.webp',
@@ -1269,6 +1272,22 @@
       mbtn.addEventListener('keydown', (e)=>handleKeydown(e,i,mobileTabs,'.cond-mobile-tab'));
       mobileTabs.appendChild(mbtn);
     });
+    setupTabScroll();
+  }
+
+  function setupTabScroll(){
+    if(!tabPrev || !tabNext || !tabList) return;
+    function updateScrollButtons(){
+      const scrollLeft = tabList.scrollLeft;
+      const maxScroll = tabList.scrollWidth - tabList.clientWidth;
+      tabPrev.hidden = scrollLeft <= 4;
+      tabNext.hidden = scrollLeft >= maxScroll - 4;
+    }
+    tabPrev.addEventListener('click', ()=>{ tabList.scrollBy({left: -280, behavior:'smooth'}); });
+    tabNext.addEventListener('click', ()=>{ tabList.scrollBy({left: 280, behavior:'smooth'}); });
+    tabList.addEventListener('scroll', updateScrollButtons, {passive:true});
+    window.addEventListener('resize', updateScrollButtons);
+    updateScrollButtons();
   }
 
   function handleKeydown(e,i,container,selector){
