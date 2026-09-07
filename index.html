@@ -1175,9 +1175,9 @@
     <div class="cond-grid">
       <div class="cond-mobile-tabs" id="condMobileTabs" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></div>
       <div class="cond-tab-wrapper">
-        <button class="cond-tab-scroll cond-tab-scroll--prev" id="condTabPrev" type="button" aria-label="Scroll conditions left" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 12-7-7 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="cond-tab-scroll cond-tab-scroll--prev" id="condTabPrev" type="button" aria-label="Scroll conditions left" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <ul class="cond-tablist" id="condTabList" role="tablist" aria-label="Mental health conditions" aria-orientation="horizontal"></ul>
-        <button class="cond-tab-scroll cond-tab-scroll--next" id="condTabNext" type="button" aria-label="Scroll conditions right" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 12 7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="cond-tab-scroll cond-tab-scroll--next" id="condTabNext" type="button" aria-label="Scroll conditions right" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <div class="cond-track-shell">
         <div class="cond-track" id="condTrack">
@@ -1356,6 +1356,8 @@
         btn.setAttribute('tabindex', selected?'0':'-1');
       });
     });
+    const activeTab = document.getElementById(`cond-tab-${c.id}`);
+    if(activeTab) activeTab.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
     const activeMobile = document.getElementById(`cond-mtab-${c.id}`);
     if(activeMobile) activeMobile.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
     panel.classList.add('cond-fade');
